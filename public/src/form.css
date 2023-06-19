@@ -1,0 +1,89 @@
+*
+{
+  margin:0;
+  padding:0;
+}
+form
+{
+  border: 2px solid #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding:2.5rem;
+  margin:2.5rem;
+  border-radius: 1.5vh;
+}
+input[type=text]
+{
+  width: 100%;
+  padding: 1.5vh;
+  margin-top: 5vh;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 1.5vh;
+}
+input[type=password]
+{
+  width: 100%;
+  padding: 1.5vh;
+  margin-top: 5vh;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 1.5vh;
+}
+button
+{
+  background-color: #04AA6D;
+  color: white;
+  padding: 1.5vh;
+  margin-top: 5vh;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 1.5vh;
+}
+button:hover
+{
+  opacity: 0.8;
+}
+.imgcontainer
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container
+{
+  max-width: 50vw;
+}
+.heading
+{
+  text-align: center;
+  font-size: 1.5em;
+  color: #336699;
+  font-weight: 500;
+}
+.cnt
+{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+::placeholder
+{
+  color: lightgrey;
+  text-align: center;
+}
+.logo
+{
+  height:22.5vh;
+}
+::-webkit-scrollbar
+{
+  display: none;
+}
