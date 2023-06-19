@@ -87,3 +87,22 @@ button:hover
 {
   display: none;
 }
+.imga {
+  width: 7.5%;
+  position: absolute;
+  animation: rotate 2s infinite linear;
+  transform-style: preserve-3d;
+}
+@keyframes rotate {
+  0% { transform: translateZ(-50px) rotateY(0deg);}
+  100% { transform: translateZ(-50px) rotateY(360deg);}
+}
+.loader{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}

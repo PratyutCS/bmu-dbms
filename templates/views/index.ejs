@@ -6,10 +6,16 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>Dashboard</title>
     <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="loader.css">
 </head>
 <body>
+    <%-include("../partials/loader") %>
     <%-include("../partials/header") %>
     <%-include("../partials/"+type+"/part1") %>
+    <div class="content">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+    </div>
 </body>
 
 </html>

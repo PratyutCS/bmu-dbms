@@ -8,6 +8,9 @@
       <link rel="icon" type="image/x-icon" href="favicon.ico">
   </head>
   <body>
+    <div class="loader">
+      <img class="imga" src="/bmu-logo.png" alt="Loading...">
+    </div>
     <div class="cnt">
       <form action="/index" method="post">
         <div class="imgcontainer">
@@ -20,6 +23,12 @@
           <button type="submit">Login</button>
         </div>
       </form>
+      <script type="text/javascript">
+        window.addEventListener("load",function(){
+            const loader = document.querySelector(".loader");
+            loader.style.display = "none";
+        })
+      </script>
     </div>
   </body>
 </html>
