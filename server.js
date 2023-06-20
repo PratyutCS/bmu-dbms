@@ -1,5 +1,3 @@
-let type;
-
 let Express = require('express')
 let path = require('path')
 const mongoose = require('mongoose')
@@ -59,6 +57,9 @@ app.use(session({
 }))
 
 app.get("/", (req, res) => {
+    if(req.session.isAuth){
+        res.redirect("/dashboard");
+    }
     res.sendFile(path.join(htmlfolder, "index.html"));
 })
 
@@ -79,7 +80,7 @@ app.post("/index", async(req, res) => {
             else if(useremail.content === pass){
                 req.session.isAuth="true";
                 req.session.username=useremail.title;
-                type=useremail.type;
+                req.session.type=useremail.type;
                 res.redirect("/dashboard");
             }
             else{
@@ -102,8 +103,7 @@ app.post("/logout", (req, res) => {
 
 
 app.get("/dashboard", isAuth ,(req, res) => {
-    console.log(type);
-    res.render('index',{type:type});
+    res.render('index',{type:req.session.type});
 })
 
 app.get("*", (req, res) => {
