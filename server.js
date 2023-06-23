@@ -1,3 +1,4 @@
+require("dotenv").config()
 let Express = require('express')
 let path = require('path')
 const mongoose = require('mongoose')
@@ -19,10 +20,10 @@ let htmlfolder = path.join(__dirname, "/public/html");
 app.set('view engine','ejs');
 app.set("views",path.join(__dirname, "./templates/views"))
 
-const urri = "mongodb+srv://AikataPratyut:aikata%40123@mscdb.0tplylu.mongodb.net/iqacDB";
+const urri = process.env.dburi;
 
 mongoose.connect(urri)
-.then((result)=>console.log("works "+result))
+.then((result)=>console.log("mdb pass 2"))
 .catch((err)=>console.log(err));
 
 const nodesSchema = {
@@ -67,7 +68,6 @@ app.post("/index", async(req, res) => {
     try{
         const email= ((req.body.uname).toString()).trim();
         const pass = ((req.body.psw).toString()).trim();
-
         if(email.length > 9 || pass.length > 9){
             res.redirect("/");
         }
@@ -103,7 +103,7 @@ app.post("/logout", (req, res) => {
 
 
 app.get("/dashboard", isAuth ,(req, res) => {
-    res.render('index',{type:req.session.type});
+    res.render('index',{type:req.session.type,name:req.session.username});
 })
 
 app.get("*", (req, res) => {
@@ -113,8 +113,8 @@ app.get("*", (req, res) => {
 const PORT= process.env.PORT || 3000
 
 app.listen(PORT, () => {
-    console.log("Server is running at lolz "+PORT);
+    console.log("Server is running at "+PORT);
     mongoose.connect(urri)
-    .then((result)=>console.log("works "+result))
+    .then((result)=>console.log("mdb pass 1"))
     .catch((err)=>console.log(err));
 })
