@@ -14,6 +14,10 @@
 <body>
     <%-include("../partials/loader") %>
     <%-include("../partials/header") %>
-    <%-include("../partials/"+type+"/part1") %>
+    <% if (dashboard) { %>
+        <%-include("../partials/"+type+"/part1") %>
+    <% } else if (forms) { %>
+        <%-include("../partials/"+type+"/part2") %>
+    <% }%>
 </body>
 </html>

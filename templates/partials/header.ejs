@@ -4,9 +4,37 @@
     <input type="checkbox" id="toggle-1">
     <nav>
         <ul>
-            <li><a>Dashboard</a></li>
-            <li><a>Forms</a></li>
+            <li><a onclick="loadPartial(true,false,<%= form1 %>,<%= form2 %>)">Dashboard</a></li>
+            <li><a onclick="loadPartial(false,true,<%= form1 %>,<%= form2 %>)">Forms</a></li>
             <li><form action="/logout" method="post"><button class="logout" type="submit"><a>Logout</a></button></form></li>
         </ul>
-    </nav> 
+    </nav>
+    <script>
+    function loadPartial(i,j,k,l) {
+        let data = {
+          dashboard: i,
+          forms: j,
+          form1: k,
+          form2: l
+        };
+        fetch('/dashdata', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          if (response.ok) {
+            location.reload();
+            console.log('Data sent successfully!');
+          } else {
+            console.error('Error sending data.');
+          }
+        })
+        .catch(error => {
+          console.error('Error sending data:');
+        });
+      }
+    </script>
 </section>

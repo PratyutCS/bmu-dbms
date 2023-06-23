@@ -1,3 +1,8 @@
+let dashboard = true;
+let forms = false;
+let form1 = true;
+let form2 = false;
+
 require("dotenv").config()
 let Express = require('express')
 let path = require('path')
@@ -10,6 +15,7 @@ const mongodbsession = require('connect-mongodb-session')(session);
 const app = Express()
 
 app.use(bodyparser.urlencoded({extended: true}));
+app.use(Express.json());
 
 app.use(Express.static(__dirname + '/public/src'));
 app.use(Express.static(__dirname + '/public/assets'));
@@ -35,7 +41,7 @@ const Node = mongoose.model('Node', nodesSchema)
 
 const isAuth=(req,res,next)=>{
     if(req.session.isAuth){
-        next()
+        next();
     }
     else{
         res.redirect("/");
@@ -78,6 +84,10 @@ app.post("/index", async(req, res) => {
                 res.redirect("/");
             }
             else if(useremail.content === pass){
+                dashboard = true;
+                forms = false;
+                form1 = true;
+                form2 = false;
                 req.session.isAuth="true";
                 req.session.username=useremail.title;
                 req.session.type=useremail.type;
@@ -103,7 +113,21 @@ app.post("/logout", (req, res) => {
 
 
 app.get("/dashboard", isAuth ,(req, res) => {
-    res.render('index',{type:req.session.type,name:req.session.username});
+    res.render('index',{type:req.session.type,
+                        name:req.session.username,
+                        dashboard:dashboard,
+                        forms:forms,
+                        form1:form1,
+                        form2:form2
+                    });
+})
+
+app.post("/dashdata", isAuth ,(req,res)=>{
+    dashboard = req.body.dashboard;
+    forms = req.body.forms;
+    form1 = req.body.form1;
+    form2 = req.body.form2;
+    res.redirect("/dashboard");
 })
 
 app.get("*", (req, res) => {
