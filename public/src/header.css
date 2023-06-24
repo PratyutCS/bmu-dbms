@@ -56,6 +56,7 @@ header {
     color: #002e5b;
     font-weight: 600;
     padding: 20px 0px;
+    margin-left: 2vw;
 }
 
 nav {
@@ -104,6 +105,10 @@ nav ul li a i {
 .toggle-menu ul {
     display: table;
     width: 25px;
+}
+
+.toggle-menu{
+    margin-right: 2vw;
 }
 
 .toggle-menu ul li {
@@ -174,7 +179,13 @@ footer {
 
 @media only screen and (max-width: 1440px) {
     section {
-        max-width: 95%;
+        max-width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    section {
+        max-width: 100%;
     }
 }
 
@@ -246,7 +257,7 @@ footer {
 
 @media only screen and (max-width: 980px) {
     .content {
-        width: 90%;
+        width: 100%;
     }
 }
 
@@ -262,7 +273,7 @@ footer {
 
 @media only screen and (max-width: 480px) {
     section {
-        max-width: 90%;
+        max-width: 100%;
     }
 }
 
@@ -295,4 +306,5 @@ footer {
   justify-content: space-between;
   align-items: center;
   height: 10vh;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
