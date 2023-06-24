@@ -10,13 +10,10 @@ const mongoose = require('mongoose')
 let bodyparser=require('body-parser');
 const session = require('express-session');
 const mongodbsession = require('connect-mongodb-session')(session);
-
-
 const app = Express()
 
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(Express.json());
-
 app.use(Express.static(__dirname + '/public/src'));
 app.use(Express.static(__dirname + '/public/assets'));
 app.use(Express.static(__dirname + '/public/js'));
@@ -29,7 +26,7 @@ app.set("views",path.join(__dirname, "./templates/views"))
 const urri = process.env.dburi;
 
 mongoose.connect(urri)
-.then((result)=>console.log("mdb pass 2"))
+.then((result)=>console.log("mdb 2 passed"))
 .catch((err)=>console.log(err));
 
 const nodesSchema = {
@@ -89,7 +86,7 @@ app.post("/index", async(req, res) => {
                 break;
             }
         }
-        if(q || w){
+        if(q || w || email.length>16 || pass.length>16){
             res.redirect("/");
         }
         else{
@@ -156,6 +153,6 @@ const PORT= process.env.PORT || 3000
 app.listen(PORT, () => {
     console.log("Server is running at "+PORT);
     mongoose.connect(urri)
-    .then((result)=>console.log("mdb pass 1"))
+    .then((result)=>console.log("mdb 1 passed"))
     .catch((err)=>console.log(err));
 })
