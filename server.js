@@ -74,7 +74,22 @@ app.post("/index", async(req, res) => {
     try{
         const email= ((req.body.uname).toString()).trim();
         const pass = ((req.body.psw).toString()).trim();
-        if(email.length > 9 || pass.length > 9){
+        let q=false,w=false;
+        for(let i=0;i<email.length;i++){
+            let ue=email.charCodeAt(i);
+            if(!((ue>=65 && ue<=90) || (ue>=97 && ue<=122))){
+                q=true;
+                break;
+            }
+        }
+        for(let i=0;i<pass.length;i++){
+            let ue=pass.charCodeAt(i);
+            if(!((ue>=64 && ue<=90) || (ue>=97 && ue<=122))){
+                w=true;
+                break;
+            }
+        }
+        if(q && w){
             res.redirect("/");
         }
         else{
@@ -123,10 +138,12 @@ app.get("/dashboard", isAuth ,(req, res) => {
 })
 
 app.post("/dashdata", isAuth ,(req,res)=>{
-    dashboard = req.body.dashboard;
-    forms = req.body.forms;
-    form1 = req.body.form1;
-    form2 = req.body.form2;
+    if(typeof req.body.dashboard == "boolean" && typeof req.body.forms == "boolean" && typeof req.body.form1 == "boolean" && typeof req.body.form2 == "boolean"){
+        dashboard = req.body.dashboard;
+        forms = req.body.forms;
+        form1 = req.body.form1;
+        form2 = req.body.form2;
+    }
     res.redirect("/dashboard");
 })
 
