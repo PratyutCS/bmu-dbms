@@ -89,7 +89,7 @@ app.post("/index", async(req, res) => {
                 break;
             }
         }
-        if(q && w){
+        if(q || w){
             res.redirect("/");
         }
         else{
