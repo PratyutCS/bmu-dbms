@@ -1,10 +1,51 @@
 <div class="content">
-    <div class="menu">
-        <a class="active">Form 1</a>
-        <a>Form 2</a>
-        <a>Form 3</a>
-    </div>
-    <div class="bdy">
-
-    </div>
+    <% if (form1) { %>
+      <div class="menu">
+          <a class="active" onclick="formPartial(true,false,false)">Form 1</a>
+          <a onclick="formPartial(false,true,false)">Form 2</a>
+          <a onclick="formPartial(false,false,true)">Form 3</a>
+      </div>
+        <%-include("./formdata/form1") %>
+    <% } else if (form2) { %>
+      <div class="menu">
+          <a onclick="formPartial(true,false,false)">Form 1</a>
+          <a class="active" onclick="formPartial(false,true,false)">Form 2</a>
+          <a onclick="formPartial(false,false,true)">Form 3</a>
+      </div>
+        <%-include("./formdata/form2") %>
+    <% } else if (form3) { %>
+      <div class="menu">
+          <a onclick="formPartial(true,false,false)">Form 1</a>
+          <a onclick="formPartial(false,true,false)">Form 2</a>
+          <a class="active" onclick="formPartial(false,false,true)">Form 3</a>
+      </div>
+        <%-include("./formdata/form3") %>
+    <% }%>
 </div>
+<script>
+function formPartial(i,j,k) {
+    let data = {
+      form1: i,
+      form2: j,
+      form3: k
+    };
+    fetch('/formdata', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (response.ok) {
+        location.reload();
+        console.log('Data sent successfully!');
+      } else {
+        console.error('Error sending data.');
+      }
+    })
+    .catch(error => {
+      console.error('Error sending data:');
+    });
+  }
+</script>
