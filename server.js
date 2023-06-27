@@ -155,9 +155,23 @@ app.post("/formdata", isAuth ,(req,res)=>{
     res.redirect("/dashboard");
 })
 
+// Simulate an error
+
+// app.get('/error', (req, res, next) => {
+//     const error = new Error('This is a test error');
+//     next(error);
+//  });
+ 
 app.get("*", (req, res) => {
     res.sendFile(path.join(htmlfolder, "error.html"));
-})
+});
+
+
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  });
+
 
 const PORT= process.env.PORT || 3000
 
