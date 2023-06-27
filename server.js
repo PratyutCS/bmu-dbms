@@ -1,8 +1,4 @@
-let dashboard = true;
-let forms = false;
-let form1 = true;
-let form2 = false;
-let form3 = false;
+let isWrong=false;
 
 require("dotenv").config()
 let Express = require('express')
@@ -66,7 +62,7 @@ app.get("/", (req, res) => {
     if(req.session.isAuth){
         res.redirect("/dashboard");
     }
-    res.sendFile(path.join(htmlfolder, "index.html"));
+    res.render('login',{isWrong : isWrong});
 })
 
 app.post("/index", async(req, res) => {
@@ -89,37 +85,42 @@ app.post("/index", async(req, res) => {
             }
         }
         if(q || w || email.length>16 || pass.length>16){
+            isWrong=true;
             res.redirect("/");
         }
         else{
             const useremail=await Node.findOne({title:email});
     
             if(!useremail){
+                isWrong=true;
                 res.redirect("/");
             }
             else if(useremail.content === pass){
-                dashboard = true;
-                forms = false;
-                form1 = true;
-                form2 = false;
-                form3 = false;
+                req.session.dashboard = true;
+                req.session.forms = false;
+                req.session.form1 = true;
+                req.session.form2 = false;
+                req.session.form3 = false;
                 req.session.isAuth="true";
                 req.session.username=useremail.title;
+                isWrong=false;
                 req.session.type=useremail.type;
                 res.redirect("/dashboard");
             }
             else{
+                isWrong=true;
                 res.redirect("/");
             }
         }
     }
     catch(error){
+        isWrong=true;
         console.log(error);
-        res.status(400).send("error cannot find username :  "+error);
+        res.redirect("/");
     }
 })
 
-app.post("/logout", (req, res) => {
+app.post("/logout",isAuth, (req, res) => {
     req.session.destroy((err)=>{
         if(err) throw err;
         res.redirect("/");
@@ -130,27 +131,27 @@ app.post("/logout", (req, res) => {
 app.get("/dashboard", isAuth ,(req, res) => {
     res.render('index',{type : req.session.type,
                         name : req.session.username,
-                        dashboard : dashboard,
-                        forms : forms,
-                        form1 : form1,
-                        form2 : form2,
-                        form3 : form3,
+                        dashboard : req.session.dashboard,
+                        forms : req.session.forms,
+                        form1 : req.session.form1,
+                        form2 : req.session.form2,
+                        form3 : req.session.form3,
                     });
 })
 
 app.post("/dashdata", isAuth ,(req,res)=>{
     if(typeof req.body.dashboard == "boolean" && typeof req.body.forms == "boolean" && req.body.dashboard != undefined && req.body.forms != undefined && req.body.dashboard != req.body.forms){
-        dashboard = req.body.dashboard;
-        forms = req.body.forms;
+        req.session.dashboard = req.body.dashboard;
+        req.session.forms = req.body.forms;
     }
     res.redirect("/dashboard");
 })
 
 app.post("/formdata", isAuth ,(req,res)=>{
     if(typeof req.body.form1 == "boolean" && typeof req.body.form2 == "boolean" && typeof req.body.form3 == "boolean" && req.body.form1 != undefined && req.body.form2 != undefined && req.body.form3 != undefined && req.body.form1!=req.body.form2!=req.body.form3){
-        form1 = req.body.form1;
-        form2 = req.body.form2;
-        form3 = req.body.form3;
+        req.session.form1 = req.body.form1;
+        req.session.form2 = req.body.form2;
+        req.session.form3 = req.body.form3;
     }
     res.redirect("/dashboard");
 })

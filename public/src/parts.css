@@ -14,6 +14,7 @@
     font-weight: 500;
     font-size: 0.85em;
     padding:0.25em;
+    cursor: pointer;
 }
 .active{
     color:#002e5b;
