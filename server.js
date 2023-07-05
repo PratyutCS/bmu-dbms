@@ -23,14 +23,11 @@ app.set("views",path.join(__dirname, "./templates/views"))
 const urri = process.env.dburi;
 const secretKey = process.env.dbSessionKey;
 
-mongoose.connect(urri)
-.then((result)=>console.log("mdb 2 passed"))
-.catch((err)=>console.log(err));
-
 const nodesSchema = {
     title: String,
     content: String,
-    type: String
+    type: String,
+    isLog: String
 }
 const Node = mongoose.model('Node', nodesSchema)
 
@@ -96,16 +93,39 @@ app.post("/index", async(req, res) => {
                 res.redirect("/");
             }
             else if(useremail.content === pass){
-                req.session.dashboard = true;
-                req.session.forms = false;
-                req.session.form1 = true;
-                req.session.form2 = false;
-                req.session.form3 = false;
-                req.session.isAuth="true";
-                req.session.username=useremail.title;
-                isWrong=false;
-                req.session.type=useremail.type;
-                res.redirect("/dashboard");
+                if(useremail.isLog === "false"){
+                    let newData={
+                        title: useremail.title,
+                        content: useremail.content,
+                        type: useremail.type,
+                        isLog: "true"
+                    };
+                    Node.updateOne({ _id: useremail._id}, newData)
+                    .then(() => {
+                        console.log('User logged in successfully.');
+                            req.session.userid = useremail._id,
+                            req.session.dashboard = true;
+                            req.session.forms = false;
+                            req.session.form1 = true;
+                            req.session.form2 = false;
+                            req.session.form3 = false;
+                            req.session.isAuth = "true";
+                            req.session.username = useremail.title;
+                            isWrong = false;
+                            req.session.type = useremail.type;
+                            req.session.content = useremail.content;
+                            res.redirect("/dashboard");
+                    })
+                    .catch((error) => {
+                        console.error('Error loggin in the user', error);
+                        isWrong=true;
+                        res.redirect("/");
+                    });
+                }
+                else{
+                    console.log("second user trynna login");
+                    res.redirect("/");
+                }
             }
             else{
                 isWrong=true;
@@ -121,9 +141,22 @@ app.post("/index", async(req, res) => {
 })
 
 app.post("/logout",isAuth, (req, res) => {
-    req.session.destroy((err)=>{
-        if(err) throw err;
-        res.redirect("/");
+    let newData={
+        title: req.session.username,
+        content: req.session.content,
+        type: req.session.type,
+        isLog: "false"
+    };
+    Node.updateOne({ _id: req.session.userid}, newData)
+    .then(() => {
+        console.log('User logged out successfully.');
+        req.session.destroy((err)=>{
+            if(err) throw err;
+            res.redirect("/");
+        });
+    })
+    .catch((error) => {
+        console.error('Error loggin out the user', error);
     });
 })
 
