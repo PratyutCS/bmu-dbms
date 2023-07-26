@@ -1,5 +1,48 @@
-<div class="bdy" style="background-color: green;">
-    <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
-    <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
-    <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+<div class="bdy">
+    <button class="accordion">Old</button>
+    <div class="panel">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+    </div>
+
+    <button class="accordion">20th-july-2021 to 20th-july-2022</button>
+    <div class="panel">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+    </div>
+
+    <button class="accordion">20th-july-2022 to 20th-july-2023</button>
+    <div class="panel">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+        <img class="ga" src="https://picsum.photos/300/300/?random" alt="images">
+    </div>
+
+    <script>
+        var prevpan = null;
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("activator");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } 
+                else {
+                    panel.style.maxHeight = "fit-content";
+                }
+                if(prevpan && prevpan!=panel){
+                    if (prevpan.style.maxHeight) {
+                        prevpan.previousElementSibling.classList.toggle("activator");
+                        prevpan.style.maxHeight = null;
+                    }
+                }
+                prevpan = panel;
+            });
+        }
+    </script>
 </div>

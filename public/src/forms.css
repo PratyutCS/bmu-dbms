@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow: hidden;
 }
 .accordion {
     margin-top: 2vh;
@@ -17,7 +18,7 @@
     text-align: left;
     outline: none;
     font-size: 15px;
-    transition: 0.4s;
+    transition: 0.75s;
   }
   
   .activator, .accordion:hover {
@@ -26,7 +27,7 @@
   
   .accordion:after {
     content: '⌄';
-    color: #777;
+    color: #3c3a3a;
     font-weight: bold;
     float: right;
     margin-left: 5px;
@@ -43,5 +44,8 @@
     overflow: hidden;
     max-height: 0;
     min-height: fit-content;
-    transition: max-height 0.2s ease-out;
+    transition: max-height 0.75s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
