@@ -59,7 +59,9 @@ app.get("/", (req, res) => {
     if(req.session.isAuth){
         res.redirect("/dashboard");
     }
-    res.render('login',{isWrong : isWrong});
+    else{
+        res.render('login',{isWrong : isWrong});
+    }
 })
 
 app.post("/index", async(req, res) => {
