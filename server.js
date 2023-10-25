@@ -1,5 +1,3 @@
-let isWrong=false;
-
 require("dotenv").config()
 let Express = require('express')
 let path = require('path')
@@ -60,7 +58,7 @@ app.get("/", (req, res) => {
         res.redirect("/dashboard");
     }
     else{
-        res.render('login',{isWrong : isWrong});
+        res.render('login');
     }
 })
 
@@ -104,7 +102,6 @@ app.post("/index", async(req, res) => {
                     };
                     Node.updateOne({ _id: useremail._id}, newData)
                     .then(() => {
-                        console.log('User logged in successfully.');
                             req.session.userid = useremail._id,
                             req.session.dashboard = true;
                             req.session.forms = false;
@@ -116,6 +113,7 @@ app.post("/index", async(req, res) => {
                             isWrong = false;
                             req.session.type = useremail.type;
                             req.session.content = useremail.content;
+                            console.log(req.session.username+' logged in successfully.');
                             res.redirect("/dashboard");
                     })
                     .catch((error) => {
@@ -151,7 +149,7 @@ app.post("/logout",isAuth, (req, res) => {
     };
     Node.updateOne({ _id: req.session.userid}, newData)
     .then(() => {
-        console.log('User logged out successfully.');
+        console.log(req.session.username+' logged out successfully.');
         req.session.destroy((err)=>{
             if(err) throw err;
             res.redirect("/");

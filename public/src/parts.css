@@ -8,7 +8,8 @@
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 .content{
-    display: block;
+    display: flex;
+    overflow: hidden;
 }
 .menu a{
     margin: 1em;
@@ -24,4 +25,21 @@
 }
 .bdy{
     height:85vh;
+}
+.gs{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: 1rem;
+}
+.gs button{
+    margin: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.gs1{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin: 2.15rem;
 }
