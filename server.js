@@ -48,7 +48,7 @@ app.use(session({
     resave:false,
     saveUninitialized:false,
     cookie: {
-        maxAge: 2 * 60 * 60 * 1000
+        maxAge: 2 * 60 * 60 * 1000 // hour * min * sec * milli_sec
       },
     store:store
 }))
@@ -67,6 +67,9 @@ app.post("/index", async(req, res) => {
         const email= ((req.body.uname).toString()).trim();
         const pass = ((req.body.psw).toString()).trim();
         let q=false,w=false;
+        if( email.length > 16 || pass.length > 16){
+            res.redirect("/");
+        }
         for(let i=0;i<email.length;i++){
             let ue=email.charCodeAt(i);
             if(!((ue>=65 && ue<=90) || (ue>=97 && ue<=122) || (ue>=48 && ue<=57))){
@@ -81,15 +84,13 @@ app.post("/index", async(req, res) => {
                 break;
             }
         }
-        if(q || w || email.length>16 || pass.length>16){
-            isWrong=true;
+        if(q || w){
             res.redirect("/");
         }
         else{
             const useremail=await Node.findOne({title:email});
     
             if(!useremail){
-                isWrong=true;
                 res.redirect("/");
             }
             else if(useremail.content === pass){
@@ -110,7 +111,6 @@ app.post("/index", async(req, res) => {
                             req.session.form3 = false;
                             req.session.isAuth = "true";
                             req.session.username = useremail.title;
-                            isWrong = false;
                             req.session.type = useremail.type;
                             req.session.content = useremail.content;
                             console.log(req.session.username+' logged in successfully.');
@@ -118,7 +118,6 @@ app.post("/index", async(req, res) => {
                     })
                     .catch((error) => {
                         console.error('Error loggin in the user', error);
-                        isWrong=true;
                         res.redirect("/");
                     });
                 }
@@ -128,13 +127,11 @@ app.post("/index", async(req, res) => {
                 }
             }
             else{
-                isWrong=true;
                 res.redirect("/");
             }
         }
     }
     catch(error){
-        isWrong=true;
         console.log(error);
         res.redirect("/");
     }
