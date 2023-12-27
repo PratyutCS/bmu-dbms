@@ -130,11 +130,7 @@ app.post("/index", async(req, res) => {
               })
               .catch(err => {
                 console.error(err);
-              });
-
-            
-            // const useremail = await Node.findOne({title:email,content:pass});
-    
+              });    
         }
     }
     catch(error){
