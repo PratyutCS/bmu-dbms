@@ -130,21 +130,15 @@ app.post("/index", async(req, res) => {
 });
 
 app.post("/logout",isAuth, (req, res) => {
-    let newData={
-        title: req.session.username,
-        content: req.session.content,
-        type: req.session.type,
-    };
-    Node.updateOne({ _id: req.session.userid}, newData)
-    .then(() => {
-        console.log(req.session.username+' logged out successfully.');
-        req.session.destroy((err)=>{
-            if(err) throw err;
+    let u = req.session.username;
+    req.session.destroy((err)=>{
+        if(err){
+            throw err;
+        }
+        else{
+            console.log(u+" logged out successfully. ");
             res.redirect("/");
-        });
-    })
-    .catch((error) => {
-        console.error('Error loggin out the user', error);
+        }
     });
 });
 
