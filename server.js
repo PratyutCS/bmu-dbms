@@ -11,12 +11,11 @@ app.use(bodyparser.urlencoded({extended: true}));
 app.use(Express.json());
 app.use(Express.static(__dirname + '/public/src'));
 app.use(Express.static(__dirname + '/public/assets'));
-app.use(Express.static(__dirname + '/public/js'));
 
 let htmlfolder = path.join(__dirname, "/public/html");
 
 app.set('view engine','ejs');
-app.set("views",path.join(__dirname, "./templates/views"))
+app.set("views",path.join(__dirname, "./templates/views"));
 
 const urri = process.env.dburi;
 const secretKey = process.env.dbSessionKey;
@@ -24,10 +23,20 @@ const secretKey = process.env.dbSessionKey;
 const nodesSchema = {
     title: String,
     content: String,
-    type: String,
-    isLog: String
-}
-const Node = mongoose.model('Node', nodesSchema)
+    type: String
+};
+
+const Node = mongoose.model('Node', nodesSchema);
+
+
+const  nodesSchema2 = {
+    expires: Date,
+    session: Object,
+};
+
+
+const Node2 = mongoose.model('Session', nodesSchema2);
+
 
 const isAuth=(req,res,next)=>{
     if(req.session.isAuth){
@@ -36,22 +45,22 @@ const isAuth=(req,res,next)=>{
     else{
         res.redirect("/");
     }
-}
+};
 
 const store = new mongodbsession({
     uri:urri,
     collection:'sessions'
-})
+});
 
 app.use(session({
     secret:secretKey,
     resave:false,
     saveUninitialized:false,
     cookie: {
-        maxAge: 2 * 60 * 60 * 1000 // hour * min * sec * milli_sec
+        maxAge: 10 * 60 * 60 * 1000 // hour * min * sec * milli_sec
       },
-    store:store
-}))
+    store : store,
+}));
 
 app.get("/", (req, res) => {
     if(req.session.isAuth){
@@ -60,75 +69,72 @@ app.get("/", (req, res) => {
     else{
         res.render('login');
     }
-})
+});
+
+function check(q){
+    for(let i=0;i<q.length;i++){
+        let ue=q.charCodeAt(i);
+        if(!((ue>=64 && ue<=90) || (ue>=97 && ue<=122) || (ue>=48 && ue<=57))){
+            return true;
+        }
+    }
+    return false;
+}
+
+async function fetchData(email,pass){
+    const fr = await Node.findOne({title:email,content:pass});
+    return fr;
+}
 
 app.post("/index", async(req, res) => {
     try{
-        const email= ((req.body.uname).toString()).trim();
-        const pass = ((req.body.psw).toString()).trim();
-        let q=false,w=false;
-        if( email.length > 16 || pass.length > 16){
-            res.redirect("/");
-        }
-        for(let i=0;i<email.length;i++){
-            let ue=email.charCodeAt(i);
-            if(!((ue>=65 && ue<=90) || (ue>=97 && ue<=122) || (ue>=48 && ue<=57))){
-                q=true;
-                break;
-            }
-        }
-        for(let i=0;i<pass.length;i++){
-            let ue=pass.charCodeAt(i);
-            if(!((ue>=64 && ue<=90) || (ue>=97 && ue<=122) || (ue>=48 && ue<=57))){
-                w=true;
-                break;
-            }
-        }
-        if(q || w){
+        const email = ((req.body.uname).toString()).substring(0, 16);
+        const pass = ((req.body.psw).toString()).substring(0, 16);
+        
+        if(check(email) || check(pass)){
             res.redirect("/");
         }
         else{
-            const useremail=await Node.findOne({title:email});
-    
-            if(!useremail){
-                res.redirect("/");
-            }
-            else if(useremail.content === pass){
-                if(useremail.isLog === "false"){
-                    let newData={
-                        title: useremail.title,
-                        content: useremail.content,
-                        type: useremail.type,
-                        isLog: "true"
-                    };
-                    Node.updateOne({ _id: useremail._id}, newData)
-                    .then(() => {
-                            req.session.userid = useremail._id,
-                            req.session.dashboard = true;
-                            req.session.forms = false;
-                            req.session.form1 = true;
-                            req.session.form2 = false;
-                            req.session.form3 = false;
-                            req.session.isAuth = "true";
-                            req.session.username = useremail.title;
-                            req.session.type = useremail.type;
-                            req.session.content = useremail.content;
-                            console.log(req.session.username+' logged in successfully.');
-                            res.redirect("/dashboard");
-                    })
-                    .catch((error) => {
-                        console.error('Error loggin in the user', error);
+            await Node2.find({})
+            .then(async data => {
+                let flag = true;
+                for(var i=0;i<data.length;i++){
+                    if(data[i].session.username === email){
+                        console.log(email + " trynna second login");
+                        flag = false;
                         res.redirect("/");
-                    });
+                    }
                 }
-                else{
-                    console.log("second user trynna login");
-                    res.redirect("/");
+                if(flag){
+                    let useremail = await fetchData(email,pass);
+    
+                    if(!useremail){
+                        console.log("user not found");
+                        res.redirect("/");
+                    }
+                    else{
+                        req.session.userid = useremail._id;
+                        req.session.dashboard = true;
+                        req.session.forms = false;
+                        req.session.form1 = true;
+                        req.session.form2 = false;
+                        req.session.form3 = false;
+                        req.session.isAuth = "true";
+                        req.session.username = useremail.title;
+                        req.session.password = useremail.content;
+                        req.session.type = useremail.type;
+                        console.log(req.session.username+' logged in successfully.');
+                        res.redirect("/dashboard");
+                    }
                 }
-            }
-            else{
-                res.redirect("/");
-            }
+              })
+              .catch(err => {
+                console.error(err);
+              });
+
+            
+            // const useremail = await Node.findOne({title:email,content:pass});
+    
         }
     }
     catch(error){
@@ -141,8 +147,7 @@ app.post("/logout",isAuth, (req, res) => {
     let newData={
         title: req.session.username,
         content: req.session.content,
-        type: req.session.type,
-        isLog: "false"
+        type: req.session.type
     };
     Node.updateOne({ _id: req.session.userid}, newData)
     .then(() => {
