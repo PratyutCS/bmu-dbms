@@ -23,7 +23,7 @@ const secretKey = process.env.dbSessionKey;
 const nodesSchema = {
     title: String,
     content: String,
-    type: String
+    type: String,
 };
 const Node = mongoose.model('Node', nodesSchema);
 
@@ -44,7 +44,7 @@ const isAuth=(req,res,next)=>{
 
 const store = new mongodbsession({
     uri:urri,
-    collection:'sessions'
+    collection:'sessions',
 });
 
 app.use(session({
@@ -52,7 +52,7 @@ app.use(session({
     resave:false,
     saveUninitialized:false,
     cookie: {
-        maxAge: 12 * 60 * 60 * 1000 /* (hour * min * sec * milli_sec) = 12 hours session key valid */
+        maxAge: 12 * 60 * 60 * 1000, /* (hour * min * sec * milli_sec) = 12 hours session key valid */
       },
     store : store,
 }));
@@ -127,13 +127,13 @@ app.post("/index", async(req, res) => {
         console.log(error);
         res.redirect("/");
     }
-})
+});
 
 app.post("/logout",isAuth, (req, res) => {
     let newData={
         title: req.session.username,
         content: req.session.content,
-        type: req.session.type
+        type: req.session.type,
     };
     Node.updateOne({ _id: req.session.userid}, newData)
     .then(() => {
@@ -146,7 +146,7 @@ app.post("/logout",isAuth, (req, res) => {
     .catch((error) => {
         console.error('Error loggin out the user', error);
     });
-})
+});
 
 
 app.get("/dashboard", isAuth ,(req, res) => {
@@ -158,7 +158,7 @@ app.get("/dashboard", isAuth ,(req, res) => {
                         form2 : req.session.form2,
                         form3 : req.session.form3,
                     });
-})
+});
 
 app.post("/dashdata", isAuth ,(req,res)=>{
     if(typeof req.body.dashboard == "boolean" && typeof req.body.forms == "boolean" && req.body.dashboard != undefined && req.body.forms != undefined && req.body.dashboard != req.body.forms){
@@ -166,7 +166,7 @@ app.post("/dashdata", isAuth ,(req,res)=>{
         req.session.forms = req.body.forms;
     }
     res.redirect("/dashboard");
-})
+});
 
 app.post("/formdata", isAuth ,(req,res)=>{
     if(typeof req.body.form1 == "boolean" && typeof req.body.form2 == "boolean" && typeof req.body.form3 == "boolean" && req.body.form1 != undefined && req.body.form2 != undefined && req.body.form3 != undefined && req.body.form1!=req.body.form2!=req.body.form3){
@@ -175,7 +175,7 @@ app.post("/formdata", isAuth ,(req,res)=>{
         req.session.form3 = req.body.form3;
     }
     res.redirect("/dashboard");
-})
+});
 
 // Simulate an error
 
@@ -192,14 +192,14 @@ app.get("*", (req, res) => {
 app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).send('Internal Server Error');
-  });
+});
 
 
-const PORT= process.env.PORT || 3000
+const PORT= process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log("Server is running at "+PORT);
     mongoose.connect(urri)
     .then((result)=>console.log("mdb 1 passed"))
     .catch((err)=>console.log(err));
-})
+});
