@@ -25,18 +25,13 @@ const nodesSchema = {
     content: String,
     type: String
 };
-
 const Node = mongoose.model('Node', nodesSchema);
-
 
 const  nodesSchema2 = {
     expires: Date,
     session: Object,
 };
-
-
 const Node2 = mongoose.model('Session', nodesSchema2);
-
 
 const isAuth=(req,res,next)=>{
     if(req.session.isAuth){
@@ -57,7 +52,7 @@ app.use(session({
     resave:false,
     saveUninitialized:false,
     cookie: {
-        maxAge: 10 * 60 * 60 * 1000 // hour * min * sec * milli_sec
+        maxAge: 12 * 60 * 60 * 1000 /* (hour * min * sec * milli_sec) = 12 hours session key valid */
       },
     store : store,
 }));
