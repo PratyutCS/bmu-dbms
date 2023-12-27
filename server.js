@@ -76,11 +76,6 @@ function check(q){
     return false;
 }
 
-async function fetchData(email,pass){
-    const fr = await Node.findOne({title:email,content:pass});
-    return fr;
-}
-
 app.post("/index", async(req, res) => {
     try{
         const email = ((req.body.uname).toString()).substring(0, 16);
@@ -101,7 +96,7 @@ app.post("/index", async(req, res) => {
                     }
                 }
                 if(flag){
-                    let useremail = await fetchData(email,pass);
+                    let useremail = await Node.findOne({title:email,content:pass});
     
                     if(!useremail){
                         console.log("user not found");
