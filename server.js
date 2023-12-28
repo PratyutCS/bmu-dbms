@@ -145,7 +145,8 @@ app.post("/logout",isAuth, (req, res) => {
 
 
 app.get("/dashboard", isAuth ,(req, res) => {
-    res.render('index',{type : req.session.type,
+    res.render('index',{
+                        type : req.session.type,
                         name : req.session.username,
                     });
 });
@@ -183,8 +184,10 @@ app.get("/pg", isAuth ,(req,res)=>{
             files.forEach(function (file) {
                 fileList.push(file.substring(0,file.length-5));
             });
-            res.render("../partials/"+req.session.type+"/pg",{
+            res.render("./up",{
                 list : fileList,
+                type : req.session.type,
+                name : req.session.username,
             });
         }
     });
