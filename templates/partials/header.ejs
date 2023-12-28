@@ -1,38 +1,10 @@
 <section class="hamburger">
-    <a id="logo" target="_blank"><%=name%></a> 
+    <a id="logo" target="_blank"><%=name%> (<%=type%>)</a> 
     <label for="toggle-1" class="toggle-menu"><ul><li></li> <li></li> <li></li></ul></label>
     <input type="checkbox" id="toggle-1">
     <nav>
         <ul>
-            <li><a onclick="loadPartial(true,false)">Dashboard</a></li>
-            <li><a onclick="loadPartial(false,true)">Forms</a></li>
             <li><form action="/logout" method="post"><button class="logout" type="submit"><a>Logout</a></button></form></li>
         </ul>
     </nav>
-    <script>
-    function loadPartial(i,j) {
-        let data = {
-          dashboard: i,
-          forms: j
-        };
-        fetch('/dashdata', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-        .then(response => {
-          if (response.ok) {
-            location.reload();
-            console.log('Data sent successfully!');
-          } else {
-            console.error('Error sending data.');
-          }
-        })
-        .catch(error => {
-          console.error('Error sending data:');
-        });
-      }
-    </script>
 </section>

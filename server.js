@@ -6,6 +6,7 @@ let bodyparser=require('body-parser');
 const session = require('express-session');
 const mongodbsession = require('connect-mongodb-session')(session);
 const app = Express()
+var fs = require('fs');
 
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(Express.json());
@@ -146,14 +147,10 @@ app.post("/logout",isAuth, (req, res) => {
 app.get("/dashboard", isAuth ,(req, res) => {
     res.render('index',{type : req.session.type,
                         name : req.session.username,
-                        dashboard : req.session.dashboard,
-                        forms : req.session.forms,
-                        form1 : req.session.form1,
-                        form2 : req.session.form2,
-                        form3 : req.session.form3,
                     });
 });
 
+// to remove
 app.post("/dashdata", isAuth ,(req,res)=>{
     if(typeof req.body.dashboard == "boolean" && typeof req.body.forms == "boolean" && req.body.dashboard != undefined && req.body.forms != undefined && req.body.dashboard != req.body.forms){
         req.session.dashboard = req.body.dashboard;
@@ -162,6 +159,7 @@ app.post("/dashdata", isAuth ,(req,res)=>{
     res.redirect("/dashboard");
 });
 
+// to remove
 app.post("/formdata", isAuth ,(req,res)=>{
     if(typeof req.body.form1 == "boolean" && typeof req.body.form2 == "boolean" && typeof req.body.form3 == "boolean" && req.body.form1 != undefined && req.body.form2 != undefined && req.body.form3 != undefined && req.body.form1!=req.body.form2!=req.body.form3){
         req.session.form1 = req.body.form1;
@@ -169,6 +167,32 @@ app.post("/formdata", isAuth ,(req,res)=>{
         req.session.form3 = req.body.form3;
     }
     res.redirect("/dashboard");
+});
+
+app.get("/pg", isAuth ,(req,res)=>{
+
+    const directoryPath = path.join(__dirname, '/'+req.session.type+req.session.pg);
+    let fileList = [];
+
+    fs.readdir(directoryPath, function (err, files) {
+        if (err) {
+            console.log('Unable to scan directory: ' + err);
+            res.redirect("/");
+        }
+        else{
+            files.forEach(function (file) {
+                fileList.push(file.substring(0,file.length-5));
+            });
+            res.render("../partials/"+req.session.type+"/pg",{
+                list : fileList,
+            });
+        }
+    });
+});
+
+app.post("/pg", isAuth ,(req,res)=>{
+    req.session.pg = req.body.pg;
+    res.redirect("/pg");
 });
 
 // Simulate an error
