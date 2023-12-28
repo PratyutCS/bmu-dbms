@@ -7,6 +7,8 @@ const session = require('express-session');
 const mongodbsession = require('connect-mongodb-session')(session);
 const app = Express()
 var fs = require('fs');
+const xlsx = require('xlsx');
+const multer = require('multer');
 
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(Express.json());
@@ -46,6 +48,37 @@ const isAuth=(req,res,next)=>{
 const store = new mongodbsession({
     uri:urri,
     collection:'sessions',
+});
+
+let xltojson = require("./scripts/xltojson.js");
+
+
+const getDestination = (req, file, cb) => {
+  // Implement your logic to determine the destination folder here
+  const folderName = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"); // Replace with your logic
+  console.log(folderName);
+
+  // The callback function expects the error as the first argument and the destination folder as the second argument
+  cb(null, `${folderName}`);
+};
+
+const storage = multer.diskStorage({
+  destination: getDestination,
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  limits: { fileSize: 5 * 1024 * 1024 }, //5 mbs
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only xlsx files are allowed.'), false);
+    }
+  },
+  storage: storage,
 });
 
 app.use(session({
@@ -172,7 +205,7 @@ app.post("/formdata", isAuth ,(req,res)=>{
 
 app.get("/pg", isAuth ,(req,res)=>{
 
-    const directoryPath = path.join(__dirname, '/'+req.session.type+req.session.pg);
+    const directoryPath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel");
     let name="";
     let head = "";
     let count = 0;
@@ -214,6 +247,53 @@ app.post("/pg", isAuth ,(req,res)=>{
     req.session.pg = req.body.pg;
     res.redirect("/pg");
 });
+
+app.post('/upload', upload.single('file'),isAuth, (req, res) => {
+    const file = req.file;
+    if (!file) {
+        console.log("filenotfound nb");
+        return res.redirect("/pg");
+    }
+    try {
+      xltojson.xtj(req,file);
+      res.redirect("/pg");
+    } 
+    catch (error) {
+      console.error('Error reading file:', error);
+      res.status(500).send('Error reading file.');
+    }
+  });
+
+app.post('/content',isAuth,(req,res) => {
+    filePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+        } 
+        else {
+          try {
+            res.render('content.ejs',{
+                data : data,
+            });
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        }
+    });
+});
+
+app.post('/delete',isAuth,(req,res) => {
+    jsonFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
+    xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
+    fs.unlinkSync(jsonFilePath);
+    fs.unlinkSync(xlFilePath);
+    res.redirect("/pg");
+  });
+
+app.post('/download',isAuth,(req,res) => {
+    xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
+    res.status(200).download(xlFilePath, req.body.fileName+".xlsx");
+  });
 
 // Simulate an error
 
