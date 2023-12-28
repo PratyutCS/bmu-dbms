@@ -210,7 +210,6 @@ footer {
     }
 
     label {
-        float: right;
         padding: 8px 0px;
         display: inline-block;
         cursor: pointer;

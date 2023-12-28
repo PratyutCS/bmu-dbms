@@ -2,11 +2,12 @@
     background-color: #ddd;
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 70vh;
     width: 40vw;
-    margin: 20px;
-    padding: 20px;
+    margin: 2.5vh;
+    padding: 2.5vh;
     border-radius: 0.5rem;
+    overflow: scroll;
 }
 
 .btn {
@@ -21,8 +22,8 @@
 
 }
 
-section{
-    height: 90vh;
+.blud{
+    height: 80vh !important;
     display: flex;
 }
 
@@ -34,4 +35,31 @@ section{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.path{
+    height:5vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    color: #002e5b;
+    font-weight: bolder;
+}
+.path button{
+    all: unset;
+    padding: auto;
+    margin-left: 4vw;
+    font-size: 2rem;
+}
+.path h1{
+    all:unset;
+    margin-left: 6vw ;
+    color: #002e5b;
+    font-size: 1.25rem;
+    font-weight: bolder;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+.hamburger a{
+    margin-right: 5vw;
 }

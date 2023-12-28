@@ -173,6 +173,22 @@ app.post("/formdata", isAuth ,(req,res)=>{
 app.get("/pg", isAuth ,(req,res)=>{
 
     const directoryPath = path.join(__dirname, '/'+req.session.type+req.session.pg);
+    let name="";
+    let head = "";
+    let count = 0;
+    for(let i=req.session.pg.length;i>=0;i--){
+        if(req.session.pg.charAt(i)==='/'){
+            count+=1;
+            if(count == 2)
+            break;
+        }
+        else if(count == 1){
+            head=req.session.pg.charAt(i)+head;
+        }
+        else{
+            name=req.session.pg.charAt(i)+name;
+        }
+    }
     let fileList = [];
 
     fs.readdir(directoryPath, function (err, files) {
@@ -187,7 +203,8 @@ app.get("/pg", isAuth ,(req,res)=>{
             res.render("./up",{
                 list : fileList,
                 type : req.session.type,
-                name : req.session.username,
+                head : head,
+                name : name,
             });
         }
     });
