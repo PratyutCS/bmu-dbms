@@ -111,7 +111,7 @@ function check(q){
 }
 
 app.post("/index", async(req, res) => {
-    if(req.body.uname == undefined || req.body.psw.length == undefined){
+    if(req.body.uname == undefined || req.body.psw == undefined){
         res.redirect("/");
     }
     try{
