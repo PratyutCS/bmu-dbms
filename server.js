@@ -112,57 +112,60 @@ function check(q){
 
 app.post("/index", async(req, res) => {
     if(!req.body.uname || !req.body.psw){
+        console.log("found");
         res.redirect("/");
     }
-    try{
-        const email = ((req.body.uname).toString()).substring(0, 16);
-        const pass = ((req.body.psw).toString()).substring(0, 16);
+    else{
+        try{
+            const email = ((req.body.uname).toString()).substring(0, 16);
+            const pass = ((req.body.psw).toString()).substring(0, 16);
+            
+            if(check(email) || check(pass)){
+                res.redirect("/");
+            }
+            else{
+                await Node2.find({})
+                .then(async data => {
+                    let flag = true;
+                    for(var i=0;i<data.length;i++){
+                        if(data[i].session.username === email){
+                            console.log(email + " trynna second login");
+                            flag = false;
+                            res.redirect("/");
+                        }
+                    }
+                    if(flag){
+                        let useremail = await Node.findOne({title:email,content:pass});
         
-        if(check(email) || check(pass)){
+                        if(!useremail){
+                            console.log("user not found");
+                            res.redirect("/");
+                        }
+                        else{
+                            req.session.userid = useremail._id;
+                            req.session.dashboard = true;
+                            req.session.forms = false;
+                            req.session.form1 = true;
+                            req.session.form2 = false;
+                            req.session.form3 = false;
+                            req.session.isAuth = "true";
+                            req.session.username = useremail.title;
+                            req.session.password = useremail.content;
+                            req.session.type = useremail.type;
+                            console.log(req.session.username+' logged in successfully.');
+                            res.redirect("/dashboard");
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });    
+            }
+        }
+        catch(error){
+            console.log(error);
             res.redirect("/");
         }
-        else{
-            await Node2.find({})
-            .then(async data => {
-                let flag = true;
-                for(var i=0;i<data.length;i++){
-                    if(data[i].session.username === email){
-                        console.log(email + " trynna second login");
-                        flag = false;
-                        res.redirect("/");
-                    }
-                }
-                if(flag){
-                    let useremail = await Node.findOne({title:email,content:pass});
-    
-                    if(!useremail){
-                        console.log("user not found");
-                        res.redirect("/");
-                    }
-                    else{
-                        req.session.userid = useremail._id;
-                        req.session.dashboard = true;
-                        req.session.forms = false;
-                        req.session.form1 = true;
-                        req.session.form2 = false;
-                        req.session.form3 = false;
-                        req.session.isAuth = "true";
-                        req.session.username = useremail.title;
-                        req.session.password = useremail.content;
-                        req.session.type = useremail.type;
-                        console.log(req.session.username+' logged in successfully.');
-                        res.redirect("/dashboard");
-                    }
-                }
-            })
-            .catch(err => {
-                console.error(err);
-            });    
-        }
-    }
-    catch(error){
-        console.log(error);
-        res.redirect("/");
     }
 });
 
