@@ -111,6 +111,9 @@ function check(q){
 }
 
 app.post("/index", async(req, res) => {
+    if(req.body.uname.length<=0 || req.body.psw.length<=0){
+        res.redirect("/");
+    }
     try{
         const email = ((req.body.uname).toString()).substring(0, 16);
         const pass = ((req.body.psw).toString()).substring(0, 16);
