@@ -112,7 +112,6 @@ function check(q){
 
 app.post("/index", async(req, res) => {
     if(!req.body.uname || !req.body.psw){
-        console.log("found");
         res.redirect("/");
     }
     else{
