@@ -111,7 +111,7 @@ function check(q){
 }
 
 app.post("/index", async(req, res) => {
-    if(req.body.uname == undefined || req.body.psw == undefined){
+    if(!req.body.uname || !req.body.psw){
         res.redirect("/");
     }
     try{
@@ -154,10 +154,10 @@ app.post("/index", async(req, res) => {
                         res.redirect("/dashboard");
                     }
                 }
-              })
-              .catch(err => {
+            })
+            .catch(err => {
                 console.error(err);
-              });    
+            });    
         }
     }
     catch(error){
