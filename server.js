@@ -248,10 +248,31 @@ app.get("/pg", isAuth ,(req,res)=>{
     });
 });
 
+var isValid=(function(){
+  var rg1=/^[^\\/:\*\?"<>\|]+$/; // forbidden characters \ / : * ? " < > |
+  var rg2=/^\./; // cannot start with dot (.)
+  var rg3=/^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
+  return function isValid(fname){
+    return rg1.test(fname)&&!rg2.test(fname)&&!rg3.test(fname);
+  }
+})();
 
 app.post("/pg", isAuth ,(req,res)=>{
-    req.session.pg = req.body.pg;
-    res.redirect("/pg");
+    if(isValid(req.body.pg) && isValid(req.body.pg1)){
+        const folderName = path.join(__dirname,"/"+req.session.type+"/"+req.body.pg+"/"+req.body.pg1);
+        if(fs.existsSync(folderName)){
+            req.session.pg = "/"+req.body.pg+"/"+req.body.pg1;
+            res.redirect("/pg");
+        }
+        else{
+            console.log("folder not found : "+folderName);
+            res.redirect("/");
+        }
+    }
+    else{
+        console.log("invalid filename");
+        res.redirect("/");
+    }
 });
 
 app.post('/upload', upload.single('file'),isAuth, (req, res) => {
@@ -306,15 +327,6 @@ app.post('/delete',isAuth,(req,res) => {
         res.redirect("/pg");
     }
   });
-
-  var isValid=(function(){
-    var rg1=/^[^\\/:\*\?"<>\|]+$/; // forbidden characters \ / : * ? " < > |
-    var rg2=/^\./; // cannot start with dot (.)
-    var rg3=/^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
-    return function isValid(fname){
-      return rg1.test(fname)&&!rg2.test(fname)&&!rg3.test(fname);
-    }
-  })();
 
 app.post('/download',isAuth,(req,res) => {
     if(!req.body.fileName){
