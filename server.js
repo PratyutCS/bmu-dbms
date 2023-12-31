@@ -292,21 +292,40 @@ app.post('/upload', upload.single('file'),isAuth, (req, res) => {
   });
 
 app.post('/content',isAuth,(req,res) => {
-    filePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-          console.error(err);
-        } 
-        else {
-          try {
-            res.render('content.ejs',{
-                data : data,
-            });
-            } catch (error) {
-                console.error('Error parsing JSON:', error);
-            }
+    if(!req.body.fileName){
+        console.log("filename_not_found : "+req.body.fileName);
+        if(!req.session.pg){
+            res.redirect("/");
         }
-    });
+        else{
+            res.redirect("/pg");
+        }
+    }
+    else if(!isValid(req.body.fileName)){
+        if(!req.session.pg){
+            res.redirect("/");
+        }
+        else{
+            res.redirect("/pg");
+        }
+    }
+    else{
+        filePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+              console.error(err);
+            } 
+            else {
+              try {
+                res.render('content.ejs',{
+                    data : data,
+                });
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                }
+            }
+        });
+    }
 });
 
 app.post('/delete',isAuth,(req,res) => {
@@ -319,12 +338,25 @@ app.post('/delete',isAuth,(req,res) => {
             res.redirect("/pg");
         }
     }
+    else if(!isValid(req.body.fileName)){
+        if(!req.session.pg){
+            res.redirect("/");
+        }
+        else{
+            res.redirect("/pg");
+        }
+    }
     else{
         jsonFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
         xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
-        fs.unlinkSync(jsonFilePath);
-        fs.unlinkSync(xlFilePath);
-        res.redirect("/pg");
+        if(fs.existsSync(xlFilePath) && fs.existsSync(jsonFilePath)){
+            fs.unlinkSync(jsonFilePath);
+            fs.unlinkSync(xlFilePath);
+            res.redirect("/pg");
+        }
+        else{
+            res.redirect("/pg");
+        }
     }
   });
 
@@ -344,11 +376,10 @@ app.post('/download',isAuth,(req,res) => {
             res.status(200).download(xlFilePath, req.body.fileName+".xlsx");
         }
         else{
-            res.redirect("/");
+            res.redirect("/pg");
         }
     }
     else{
-
         if(!req.session.pg){
             res.redirect("/");
         }
