@@ -248,6 +248,7 @@ app.get("/pg", isAuth ,(req,res)=>{
     });
 });
 
+
 app.post("/pg", isAuth ,(req,res)=>{
     req.session.pg = req.body.pg;
     res.redirect("/pg");
@@ -288,16 +289,61 @@ app.post('/content',isAuth,(req,res) => {
 });
 
 app.post('/delete',isAuth,(req,res) => {
-    jsonFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
-    xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
-    fs.unlinkSync(jsonFilePath);
-    fs.unlinkSync(xlFilePath);
-    res.redirect("/pg");
+    if(!req.body.fileName){
+        console.log("filename_not_found : "+req.body.fileName);
+        if(!req.session.pg){
+            res.redirect("/");
+        }
+        else{
+            res.redirect("/pg");
+        }
+    }
+    else{
+        jsonFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
+        xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
+        fs.unlinkSync(jsonFilePath);
+        fs.unlinkSync(xlFilePath);
+        res.redirect("/pg");
+    }
   });
 
+  var isValid=(function(){
+    var rg1=/^[^\\/:\*\?"<>\|]+$/; // forbidden characters \ / : * ? " < > |
+    var rg2=/^\./; // cannot start with dot (.)
+    var rg3=/^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
+    return function isValid(fname){
+      return rg1.test(fname)&&!rg2.test(fname)&&!rg3.test(fname);
+    }
+  })();
+
 app.post('/download',isAuth,(req,res) => {
-    xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
-    res.status(200).download(xlFilePath, req.body.fileName+".xlsx");
+    if(!req.body.fileName){
+        console.log("filename_not_found : "+req.body.fileName);
+        if(!req.session.pg){
+            res.redirect("/");
+        }
+        else{
+            res.redirect("/pg");
+        }
+    }
+    else if(isValid(req.body.fileName)){
+        xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
+        if(fs.existsSync(xlFilePath)){
+            res.status(200).download(xlFilePath, req.body.fileName+".xlsx");
+        }
+        else{
+            res.redirect("/");
+        }
+    }
+    else{
+
+        if(!req.session.pg){
+            res.redirect("/");
+        }
+        else{
+            res.redirect("/pg");
+        }
+    }
   });
 
 // Simulate an error
