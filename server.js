@@ -209,7 +209,6 @@ app.post("/formdata", isAuth ,(req,res)=>{
 });
 
 app.get("/pg", isAuth ,(req,res)=>{
-
     const directoryPath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel");
     let name="";
     let head = "";
@@ -402,8 +401,14 @@ app.get("*", (req, res) => {
 
 
 app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        console.log("someone_fked_around_where_they_should_not_have");
+        res.redirect("/dashboard");
+    }
+    else{
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 
