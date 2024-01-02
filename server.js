@@ -9,7 +9,11 @@ const app = Express()
 var fs = require('fs');
 const xlsx = require('xlsx');
 const multer = require('multer');
+const csurf = require('csurf');
+const cookie = require('cookie-parser');
+const csrfProtection = csurf({ cookie: true });
 
+app.use(cookie());
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(Express.json());
 app.use(Express.static(__dirname + '/public/src'));
@@ -50,15 +54,12 @@ const store = new mongodbsession({
     collection:'sessions',
 });
 
-let xltojson = require("./scripts/xltojson.js");
+const xltojson = require("./scripts/xltojson.js");
 
 
 const getDestination = (req, file, cb) => {
-  // Implement your logic to determine the destination folder here
-  const folderName = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"); // Replace with your logic
+  const folderName = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/");
   console.log(folderName);
-
-  // The callback function expects the error as the first argument and the destination folder as the second argument
   cb(null, `${folderName}`);
 };
 
@@ -91,12 +92,21 @@ app.use(session({
     store : store,
 }));
 
+
+app.use(csrfProtection);
+app.use((req, res, next) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    next();
+});
+
 app.get("/", (req, res) => {
     if(req.session.isAuth){
         res.redirect("/dashboard");
     }
     else{
-        res.render('login');
+        res.render('login',{
+            csrfToken:req.csrfToken(),
+        });
     }
 });
 
@@ -181,6 +191,7 @@ app.get("/dashboard", isAuth ,(req, res) => {
     res.render('index',{
                         type : req.session.type,
                         name : req.session.username,
+                        csrfToken:req.csrfToken(),
                     });
 });
 
@@ -379,7 +390,11 @@ app.get("*", (req, res) => {
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
         console.log("someone_fked_around_where_they_should_not_have");
-        res.redirect("/dashboard");
+        res.redirect("/");
+    }
+    else if (err.code === 'EBADCSRFTOKEN'){
+        console.log("someone_fked_with_csrf_tokens");
+        res.status(403).send('CSRF Token Error');
     }
     else{
         console.error(err);
