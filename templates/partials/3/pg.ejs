@@ -3,25 +3,27 @@
         <% for (var i = 0; i < list.length;  i++ ) { %>
             <div class="cc">
                 <form method="post" action="/content">
-                    <input type="hidden" name="fileName" style = "display:none" value='<%= list[i] %>'>
-                    <button class = "lb" type="submit"><%= list[i] %></button>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="fileName" style="display:none" value='<%= list[i] %>'>
+                    <button class="lb" type="submit"><%= list[i] %></button>
                 </form>
-    
-                </form><form method="post" action="/delete">
-                    <input type="hidden" name="fileName" style = "display:none" value='<%= list[i] %>'>
-                    <button class = "lb" type="submit">delete : <%= list[i] %></button>
+
+                <form method="post" action="/delete">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="fileName" style="display:none" value='<%= list[i] %>'>
+                    <button class="lb" type="submit">delete : <%= list[i] %></button>
                 </form>
-    
-                </form><form method="post" action="/download">
-                    <input type="hidden" name="fileName" style = "display:none" value='<%= list[i] %>'>
-                    <button class = "lb" type="submit">download : <%= list[i] %></button>
+
+                <form method="post" action="/download">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="fileName" style="display:none" value='<%= list[i] %>'>
+                    <button class="lb" type="submit">download : <%= list[i] %></button>
                 </form>
             </div>
-
         <% } %>
     </div>
     <div class="btn">
-        <form method="post" action="/upload" enctype="multipart/form-data">
+        <form method="post" action="/upload?_csrf=<%= csrfToken %>" enctype="multipart/form-data">
             <input class="upload" type="file" name="file" maxlength="5000000" accept=".xlsx">
             <br>
             <button class="submitbtn" type="submit">Upload</button>

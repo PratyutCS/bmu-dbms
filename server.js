@@ -229,6 +229,7 @@ app.get("/pg", isAuth ,(req,res)=>{
                 type : req.session.type,
                 head : head,
                 name : name,
+                csrfToken:req.csrfToken(),
             });
         }
     });
