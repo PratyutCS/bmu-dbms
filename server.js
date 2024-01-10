@@ -224,7 +224,7 @@ app.get("/pg", isAuth ,(req,res)=>{
             files.forEach(function (file) {
                 fileList.push(file.substring(0,file.length-5));
             });
-            res.render("./up",{
+            res.render("./coe",{
                 list : fileList,
                 type : req.session.type,
                 head : head,
