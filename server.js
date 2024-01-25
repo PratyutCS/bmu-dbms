@@ -18,6 +18,7 @@ app.use(bodyparser.urlencoded({extended: true}));
 app.use(Express.json());
 app.use(Express.static(__dirname + '/public/src'));
 app.use(Express.static(__dirname + '/public/assets'));
+app.set('trust proxy', true);
 
 let htmlfolder = path.join(__dirname, "/public/html");
 
@@ -191,7 +192,8 @@ app.get("/dashboard", isAuth ,(req, res) => {
     res.render('index',{
                         type : req.session.type,
                         name : req.session.username,
-                        csrfToken:req.csrfToken(),
+                        csrfToken : req.csrfToken(),
+                        ip : req.ip,
                     });
 });
 
