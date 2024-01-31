@@ -56,6 +56,7 @@ const store = new mongodbsession({
 });
 
 const xltojson = require("./scripts/xltojson.js");
+const research = require("./scripts/research.js");
 
 
 const getDestination = (req, file, cb) => {
@@ -376,7 +377,14 @@ app.post('/download',isAuth,(req,res) => {
             res.redirect("/pg");
         }
     }
-  });
+});
+
+
+let prof = ["https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en","https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en"];
+
+app.get("/research", isAuth ,(req,res)=>{
+    research.getdata(prof,res,req)
+});
 
 // Simulate an error
 

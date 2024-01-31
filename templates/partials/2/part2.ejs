@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>research</title>
+</head>
+<body>
+    <%-include("./header.ejs") %>
+    <div class="lmfao" style="display: none;">
+        <%for(data of merch){%>
+            <img src="<%=data.photo%>" alt="">
+            <h1><%=data.name%></h1>
+            <h1><%=data.post%></h1>
+            <h1><%=data.data1%> - <%=data.num1%></h1>
+            <h1><%=data.data2%> - <%=data.num2%></h1>
+            <h1><%=data.data3%> - <%=data.num3%></h1>
+        <%}%>
+    </div>
+    <script>
+        window.addEventListener("load",function(){
+            document.querySelector(".lmfao").style.display = "block";
+        })
+    </script>
+</body>
+</html>
