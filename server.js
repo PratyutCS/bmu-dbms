@@ -380,7 +380,7 @@ app.post('/download',isAuth,(req,res) => {
 });
 
 
-let prof = ["https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en","https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en"];
+let prof = ["https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en","https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en","https://scholar.google.com/citations?user=XRHUphsAAAAJ&hl=en","https://scholar.google.co.in/citations?user=djL65WYAAAAJ&hl=en"];
 
 app.get("/research", isAuth ,(req,res)=>{
     research.getdata(prof,res,req)
