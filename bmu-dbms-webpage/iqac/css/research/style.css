@@ -202,9 +202,34 @@ section{
     background-color: orange;
 }
 .sc2-2-2-2-1{
-    width: 30%;
-    height: 90%;
+    width: 27.5%;
+    height: 75%;
     background-color: orange;
-    margin-top: 2.5%;
-    margin-bottom: 2.5%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    border-radius: 0.25vmax;
+}
+.sc2-2-2-2-1-1{
+    border-top-left-radius: 0.25vmax;
+    border-top-right-radius: 0.25vmax;
+    width: 100%;
+    height: 50%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sc2-2-2-2-1-2{
+    border-bottom-left-radius: 0.25vmax;
+    border-bottom-right-radius: 0.25vmax;
+    width: 100%;
+    height: 50%;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.sc2-2-2-2-1-1-img{
+    height: 95%;
 }
