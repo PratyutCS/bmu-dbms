@@ -1,16 +1,18 @@
 const puppeteer = require("puppeteer");
 
 async function getdata(links, res, req, parameter1) {
-    const MAX_CONCURRENT_PAGES = 5;
-    const BROWSER_PAGES_LIMIT = 20;
+    const MAX_CONCURRENT_PAGES = 20;
+    const BROWSER_PAGES_LIMIT = 40;
 
     const dataArray = [];
     let browser = await puppeteer.launch({
-        headless: "new",
+        headless: true,
         defaultViewport: null,
     });
 
     try {
+        let pageCounter = 0;
+
         const fetchData = async (link) => {
             const page = await browser.newPage();
             await page.setRequestInterception(true);
@@ -90,9 +92,19 @@ async function getdata(links, res, req, parameter1) {
         const promises = [];
         for (let i = 0; i < links.length; i += MAX_CONCURRENT_PAGES) {
             const batch = links.slice(i, i + MAX_CONCURRENT_PAGES);
-            promises.push(Promise.all(batch.map(link => fetchData(link))));
+            await Promise.all(batch.map(link => fetchData(link)));
+            pageCounter += batch.length;
+
+            // Check if the page limit is reached, and close/reopen the browser if needed
+            if (pageCounter >= BROWSER_PAGES_LIMIT) {
+                await browser.close();
+                browser = await puppeteer.launch({
+                    headless: true,
+                    defaultViewport: null,
+                });
+                pageCounter = 0;
+            }
         }
-        await Promise.all(promises);
 
         console.log("Sending data to the next page");
         let params = parameter1.substr(4, 1);
