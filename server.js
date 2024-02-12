@@ -381,59 +381,63 @@ app.post('/download',isAuth,(req,res) => {
 });
 
 
-let jss = {
-    prof1 :  [
-        "https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=XRHUphsAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=-ZxPXBcAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=KCz3sGcAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=szO6C0UAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=xkIaOFgAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=nBJ46o8AAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=7LgtKl8AAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=wPBE5eYAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=o7E_rnwAAAAJ&hl=en"
-    ],
-    prof2 : [
-        "https://scholar.google.co.in/citations?user=RQ7irVQAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=_UHWS2oAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=czAF0sQAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=lb5kZSkAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=a3mzDVYAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=WBpPD-QAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=iQxIGk8AAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=YCIxQRIAAAAJ&hl=en",
-        "https://scholar.google.be/citations?user=UfjhNCgAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=ZoYQ_YIAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=m5Q6ntwAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=-3cqe3MAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=EqomJrIAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=p-bF97QAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=Mayn7WkAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=uNpG0SoAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=swQcoyQAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=hy9kEH8AAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=8nues8UAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=5AGbmGsAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=qyGf-6sAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=djL65WYAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=EU3s-LgAAAAJ&hl=en",
-        "https://scholar.google.co.in/citations?user=74jSotQAAAAJ&hl=hi",
-        "https://scholar.google.com/citations?user=k78JKSoAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=6DdLqTAAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=Dfr16RgAAAAJ&hl=en",
-        "https://scholar.google.com/citations?user=aHTSfIUAAAAJ&hl=en"
-    ],
-    prof3 : [
-    ],
-    prof4 : [
-    ],
-};
-
 app.get("/research", isAuth ,(req,res)=>{
-    const parameter1 = req.query.para;
-    research.getdata(jss[parameter1],res,req,parameter1)
+    if(req.session.type == 2){
+        let jss = {
+            prof1 :  [
+                "https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=XRHUphsAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=-ZxPXBcAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=KCz3sGcAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=szO6C0UAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=xkIaOFgAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=nBJ46o8AAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=7LgtKl8AAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=wPBE5eYAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=o7E_rnwAAAAJ&hl=en"
+            ],
+            prof2 : [
+                "https://scholar.google.co.in/citations?user=RQ7irVQAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=_UHWS2oAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=czAF0sQAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=lb5kZSkAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=a3mzDVYAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=WBpPD-QAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=iQxIGk8AAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=YCIxQRIAAAAJ&hl=en",
+                "https://scholar.google.be/citations?user=UfjhNCgAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=ZoYQ_YIAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=m5Q6ntwAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=-3cqe3MAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=EqomJrIAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=p-bF97QAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=Mayn7WkAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=uNpG0SoAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=swQcoyQAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=hy9kEH8AAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=8nues8UAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=5AGbmGsAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=qyGf-6sAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=djL65WYAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=EU3s-LgAAAAJ&hl=en",
+                "https://scholar.google.co.in/citations?user=74jSotQAAAAJ&hl=hi",
+                "https://scholar.google.com/citations?user=k78JKSoAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=6DdLqTAAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=Dfr16RgAAAAJ&hl=en",
+                "https://scholar.google.com/citations?user=aHTSfIUAAAAJ&hl=en"
+            ],
+            prof3 : [
+            ],
+            prof4 : [
+            ],
+        };
+        const parameter1 = req.query.para;
+        research.getdata(jss[parameter1],res,req,parameter1);
+    }
+    else{
+        res.redirect("/dashboard");
+    }
 });
 
 // Simulate an error

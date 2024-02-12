@@ -1,6 +1,8 @@
 window.addEventListener("load",function(){
     var val = document.querySelector(".val").innerHTML;
     btn1(val);
+    document.querySelector(".loader").style.display = "none";
+    document.querySelector(".lmfao").style.display = "flex";
     charts();
   })
 
@@ -50,6 +52,8 @@ function btn1(i){
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc2-2-1-linkLine-1").innerHTML = "School of Liberal Studies";
     }
+    document.querySelector(".loader").style.display = "flex";
+    document.querySelector(".lmfao").style.display = "none";
 }
 function charts(){
     let arr1 = document.querySelectorAll(".cd1");
