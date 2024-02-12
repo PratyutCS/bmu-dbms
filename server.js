@@ -384,7 +384,15 @@ app.post('/download',isAuth,(req,res) => {
 let prof = ["https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en",
 "https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en",
 "https://scholar.google.com/citations?user=XRHUphsAAAAJ&hl=en",
-"https://scholar.google.co.in/citations?user=djL65WYAAAAJ&hl=en"
+"https://scholar.google.co.in/citations?user=djL65WYAAAAJ&hl=en",
+"https://scholar.google.com/citations?user=-ZxPXBcAAAAJ&hl=en",
+"https://scholar.google.co.in/citations?user=KCz3sGcAAAAJ&hl=en",
+"https://scholar.google.com/citations?user=7LgtKl8AAAAJ&hl=en",
+"https://scholar.google.com/citations?user=wPBE5eYAAAAJ&hl=en",
+"https://scholar.google.co.in/citations?user=o7E_rnwAAAAJ&hl=en",
+"https://scholar.google.com/citations?user=szO6C0UAAAAJ&hl=en",
+"https://scholar.google.co.in/citations?user=xkIaOFgAAAAJ&hl=en",
+"https://scholar.google.com/citations?user=nBJ46o8AAAAJ&hl=en"
 ];
 
 app.get("/research", isAuth ,(req,res)=>{

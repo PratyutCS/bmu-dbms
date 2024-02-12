@@ -69,12 +69,14 @@ async function getdata(links, res, req) {
                 });
 
                 dataArray.push(data);
+                console.log("Data Saved Successfully");
             } catch (error) {
                 console.error("Error navigating to the page:", error);
             } finally {
                 await page.close();
             }
         }
+        console.log("Sending data to the next page");
 
         await res.render("../partials/" + req.session.type + "/part2", {
             merch: dataArray,
