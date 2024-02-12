@@ -396,7 +396,9 @@ let jss = {
         "https://scholar.google.co.in/citations?user=o7E_rnwAAAAJ&hl=en"
     ],
     prof2 : [
-        "https://scholar.google.co.in/citations?user=RQ7irVQAAAAJ&hl=en"
+        "https://scholar.google.co.in/citations?user=RQ7irVQAAAAJ&hl=en",
+        "https://scholar.google.com/citations?user=_UHWS2oAAAAJ&hl=en",
+        "https://scholar.google.com/citations?user=czAF0sQAAAAJ&hl=en"
     ],
     prof3 : [
     ],

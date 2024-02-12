@@ -1,16 +1,27 @@
 const puppeteer = require("puppeteer");
 
 async function getdata(links, res, req, parameter1) {
-    const browser = await puppeteer.launch({
+    const MAX_CONCURRENT_PAGES = 5;
+    const BROWSER_PAGES_LIMIT = 20;
+
+    const dataArray = [];
+    let browser = await puppeteer.launch({
         headless: "new",
         defaultViewport: null,
     });
 
-    const dataArray = [];
-
     try {
-        for (const link of links) {
+        const fetchData = async (link) => {
             const page = await browser.newPage();
+            await page.setRequestInterception(true);
+
+            page.on('request', (req) => {
+                if (req.resourceType() == 'stylesheet' || req.resourceType() == 'font') {
+                    req.abort();
+                } else {
+                    req.continue();
+                }
+            });
 
             try {
                 await page.goto(link, {
@@ -40,7 +51,6 @@ async function getdata(links, res, req, parameter1) {
                     if (!shouldContinue) {
                         console.log("Clicking the button...");
                         await loginButton.click();
-                        await page.waitForTimeout(1000);
                     }
                 }
                 console.log("Data extraction checkpoint");
@@ -52,7 +62,7 @@ async function getdata(links, res, req, parameter1) {
                     const table = document.getElementById("gsc_rsb_st");
                     const dataElements = table.querySelectorAll(".gsc_rsb_f");
                     const quantElements = table.querySelectorAll(".gsc_rsb_std");
-                    const papers = document.getElementById("gsc_a_nn").innerText.replace("1-","");
+                    const papers = document.getElementById("gsc_a_nn").innerText.replace("1-", "");
 
                     return {
                         photo,
@@ -75,9 +85,17 @@ async function getdata(links, res, req, parameter1) {
             } finally {
                 await page.close();
             }
+        };
+
+        const promises = [];
+        for (let i = 0; i < links.length; i += MAX_CONCURRENT_PAGES) {
+            const batch = links.slice(i, i + MAX_CONCURRENT_PAGES);
+            promises.push(Promise.all(batch.map(link => fetchData(link))));
         }
+        await Promise.all(promises);
+
         console.log("Sending data to the next page");
-        let params = parameter1.substr(4,1);
+        let params = parameter1.substr(4, 1);
         console.log(params);
 
         await res.render("../partials/" + req.session.type + "/part2", {
