@@ -5,6 +5,8 @@ async function getdata(links, res, req, parameter1) {
     const BROWSER_PAGES_LIMIT = 40;
 
     const dataArray = [];
+    let map1 = new Map();
+
     let browser = await puppeteer.launch({
         headless: "new",
         defaultViewport: null,
@@ -44,7 +46,7 @@ async function getdata(links, res, req, parameter1) {
                         if (button.disabled && valueElement.innerText !== prev) {
                             return true;
                         } else {
-                            // console.log(valueElement.innerText + " ---- " + prev);
+                            console.log(valueElement.innerText + " ---- " + prev);
                             prev = valueElement.innerText;
                             return false;
                         }
@@ -53,6 +55,7 @@ async function getdata(links, res, req, parameter1) {
                     if (!shouldContinue) {
                         // console.log("Clicking the button...");
                         await loginButton.click();
+                        await page.waitForTimeout(1000);
                     }
                 }
                 // console.log("Data extraction checkpoint");
@@ -65,6 +68,13 @@ async function getdata(links, res, req, parameter1) {
                     const dataElements = table.querySelectorAll(".gsc_rsb_f");
                     const quantElements = table.querySelectorAll(".gsc_rsb_std");
                     const papers = document.getElementById("gsc_a_nn").innerText.replace("1-", "");
+                    const year = document.querySelectorAll(".gsc_a_hc");
+
+                    let arr= [];
+                    year.forEach(element => {
+                        const data = element.innerHTML;
+                        arr.push(data);
+                    });
 
                     return {
                         photo,
@@ -77,10 +87,23 @@ async function getdata(links, res, req, parameter1) {
                         data3: dataElements[2].innerText,
                         num3: quantElements[4].innerText,
                         papers,
+                        arr,
                     };
                 });
 
                 dataArray.push(data);
+                data.arr.forEach(element =>{
+                    if (!map1.has(element)) {
+                        if(element == "" || element == null){
+                            console.log(data.name+" has no year with a publication");
+                        }
+                        else{
+                            map1.set(element, 1);
+                        }
+                    } else {
+                        map1.set(element, map1.get(element) + 1);
+                    }
+                });
                 // console.log("Data Saved Successfully");
             } catch (error) {
                 console.error("Error navigating to the page:", error);
@@ -109,12 +132,14 @@ async function getdata(links, res, req, parameter1) {
         // console.log("Sending data to the next page");
         let params = parameter1.substr(4, 1);
         // console.log(params);
+        const sortedByKey = new Map([...map1.entries()].sort());
 
         await res.render("../partials/" + req.session.type + "/part2", {
             merch: dataArray,
             type: req.session.type,
             params,
             csrfToken: req.csrfToken(),
+            map1 : sortedByKey,
         });
     } catch (error) {
         console.error("Error in the scraping process:", error);

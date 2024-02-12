@@ -80,9 +80,15 @@
                 </div>
                 <div class="sc2-2-2">
                     <div class="sc2-2-2-1">
-                        <div class="sc2-2-2-1-1"></div>
-                        <div class="sc2-2-2-1-1"></div>
-                        <div class="sc2-2-2-1-1"></div>
+                        <div class="sc2-2-2-1-1">
+                            <canvas id="myChart" class="charts"></canvas>
+                        </div>
+                        <div class="sc2-2-2-1-1">
+                            <canvas id="myChart1" class="charts"></canvas>
+                        </div>
+                        <div class="sc2-2-2-1-1">
+                            <canvas id="myChart2" class="charts"></canvas>
+                        </div>
                     </div>
                     <div class="sc2-2-2-2">
                         
@@ -107,5 +113,9 @@
         </div>
     </section>
     <div class="val" style="display: none;"><%=params%></div>
+    <% map1.forEach((value, key) => { %>
+        <div style="display: none;"><span class="cd1"><%=key%></span> -- <span class="cd2"><%=value%></span></div>
+    <%});%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </body>
 </html>
