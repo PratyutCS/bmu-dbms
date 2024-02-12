@@ -6,7 +6,7 @@ async function getdata(links, res, req, parameter1) {
 
     const dataArray = [];
     let browser = await puppeteer.launch({
-        headless: true,
+        headless: "new",
         defaultViewport: null,
     });
 
