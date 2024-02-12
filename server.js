@@ -195,7 +195,6 @@ app.get("/dashboard", isAuth ,(req, res) => {
                         type : req.session.type,
                         name : req.session.username,
                         csrfToken : req.csrfToken(),
-                        ip : req.ip,
                     });
 });
 
