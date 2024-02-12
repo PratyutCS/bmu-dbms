@@ -18,6 +18,7 @@ app.use(bodyparser.urlencoded({extended: true}));
 app.use(Express.json());
 app.use(Express.static(__dirname + '/public/src'));
 app.use(Express.static(__dirname + '/public/assets'));
+app.use(Express.static(__dirname + '/public/iqac'));
 app.set('trust proxy', true);
 
 let htmlfolder = path.join(__dirname, "/public/html");
@@ -380,7 +381,11 @@ app.post('/download',isAuth,(req,res) => {
 });
 
 
-let prof = ["https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en","https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en","https://scholar.google.com/citations?user=XRHUphsAAAAJ&hl=en","https://scholar.google.co.in/citations?user=djL65WYAAAAJ&hl=en"];
+let prof = ["https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en",
+"https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en",
+"https://scholar.google.com/citations?user=XRHUphsAAAAJ&hl=en",
+"https://scholar.google.co.in/citations?user=djL65WYAAAAJ&hl=en"
+];
 
 app.get("/research", isAuth ,(req,res)=>{
     research.getdata(prof,res,req)

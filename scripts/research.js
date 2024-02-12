@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 
 async function getdata(links, res, req) {
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: "new",
         defaultViewport: null,
     });
 
