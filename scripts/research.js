@@ -44,18 +44,18 @@ async function getdata(links, res, req, parameter1) {
                         if (button.disabled && valueElement.innerText !== prev) {
                             return true;
                         } else {
-                            console.log(valueElement.innerText + " ---- " + prev);
+                            // console.log(valueElement.innerText + " ---- " + prev);
                             prev = valueElement.innerText;
                             return false;
                         }
                     }, prevValue);
 
                     if (!shouldContinue) {
-                        console.log("Clicking the button...");
+                        // console.log("Clicking the button...");
                         await loginButton.click();
                     }
                 }
-                console.log("Data extraction checkpoint");
+                // console.log("Data extraction checkpoint");
 
                 const data = await page.evaluate(() => {
                     const photo = document.getElementById("gsc_prf_pup-img").src;
@@ -81,7 +81,7 @@ async function getdata(links, res, req, parameter1) {
                 });
 
                 dataArray.push(data);
-                console.log("Data Saved Successfully");
+                // console.log("Data Saved Successfully");
             } catch (error) {
                 console.error("Error navigating to the page:", error);
             } finally {
@@ -106,9 +106,9 @@ async function getdata(links, res, req, parameter1) {
             }
         }
 
-        console.log("Sending data to the next page");
+        // console.log("Sending data to the next page");
         let params = parameter1.substr(4, 1);
-        console.log(params);
+        // console.log(params);
 
         await res.render("../partials/" + req.session.type + "/part2", {
             merch: dataArray,
