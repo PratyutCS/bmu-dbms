@@ -1,9 +1,11 @@
 window.addEventListener("load",function(){
-    btn1(1);
+    var val = document.querySelector(".val").innerHTML;
+    btn1(val);
   })
 
 
 function btn1(i){
+    console.log("i is : "+i);
     if(i==1){
         document.querySelector(".sc1-2-btn1").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");

@@ -20,22 +20,46 @@
                 <h1 class="logo-heading">BML Munjal University</h1>
             </div>
             <div class="sc1-2">
-                <div class="sc1-2-btn1 sc1-2-btn-active" onclick="btn1(1)">
-                    <img src="./assets/research/som.svg" alt="">
-                    <h1 class="sc1-2-txt1">School of Management</h1>
-                </div>
-                <div class="sc1-2-btn2" onclick="btn1(2)">
-                    <img src="./assets/research/soet.svg" alt="">
-                    <h1 class="sc1-2-txt2">School of Engeeniring Tech.</h1>
-                </div>
-                <div class="sc1-2-btn3" onclick="btn1(3)">
-                    <img src="./assets/research/sol.svg" alt="">
-                    <h1 class="sc1-2-txt3">School of Law</h1>
-                </div>
-                <div class="sc1-2-btn4" onclick="btn1(4)">
-                    <img src="./assets/research/sols.svg" alt="">
-                    <h1 class="sc1-2-txt4">School of Liberal Studies</h1>
-                </div>
+                <form method="" action="">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="para" value="prof1">
+                    <button type="submit">        
+                        <div class="sc1-2-btn1" onclick="btn1(1)">
+                            <img src="./assets/research/som.svg" alt="">
+                            <h1 class="sc1-2-txt1">School of Management</h1>
+                        </div>
+                    </button>
+                </form>
+                <form method="" action="">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="para" value="prof1">
+                    <button type="submit">
+                        <div class="sc1-2-btn2" onclick="btn1(2)">
+                            <img src="./assets/research/soet.svg" alt="">
+                            <h1 class="sc1-2-txt2">School of Engeeniring Tech.</h1>
+                        </div>
+                    </button>
+                </form>
+                <form method="" action="">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="para" value="prof1">
+                    <button type="submit">
+                        <div class="sc1-2-btn3" onclick="btn1(3)">
+                            <img src="./assets/research/sol.svg" alt="">
+                            <h1 class="sc1-2-txt3">School of Law</h1>
+                        </div>
+                    </button>
+                </form>
+                <form method="" action="">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="para" value="prof1">
+                    <button type="submit">
+                        <div class="sc1-2-btn4" onclick="btn1(4)">
+                            <img src="./assets/research/sols.svg" alt="">
+                            <h1 class="sc1-2-txt4">School of Liberal Studies</h1>
+                        </div>
+                    </button>
+                </form>
             </div>
         </div>
         <div class="sc2">

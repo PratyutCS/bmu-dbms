@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-async function getdata(links, res, req) {
+async function getdata(links, res, req, parameter1) {
     const browser = await puppeteer.launch({
         headless: "new",
         defaultViewport: null,
@@ -77,10 +77,13 @@ async function getdata(links, res, req) {
             }
         }
         console.log("Sending data to the next page");
+        let params = parameter1.substr(4,1);
+        console.log(params);
 
         await res.render("../partials/" + req.session.type + "/part2", {
             merch: dataArray,
             type: req.session.type,
+            params,
             csrfToken: req.csrfToken(),
         });
     } catch (error) {

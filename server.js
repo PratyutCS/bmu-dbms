@@ -381,22 +381,32 @@ app.post('/download',isAuth,(req,res) => {
 });
 
 
-let prof = ["https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en",
-"https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en",
-"https://scholar.google.com/citations?user=XRHUphsAAAAJ&hl=en",
-"https://scholar.google.co.in/citations?user=djL65WYAAAAJ&hl=en",
-"https://scholar.google.com/citations?user=-ZxPXBcAAAAJ&hl=en",
-"https://scholar.google.co.in/citations?user=KCz3sGcAAAAJ&hl=en",
-"https://scholar.google.com/citations?user=7LgtKl8AAAAJ&hl=en",
-"https://scholar.google.com/citations?user=wPBE5eYAAAAJ&hl=en",
-"https://scholar.google.co.in/citations?user=o7E_rnwAAAAJ&hl=en",
-"https://scholar.google.com/citations?user=szO6C0UAAAAJ&hl=en",
-"https://scholar.google.co.in/citations?user=xkIaOFgAAAAJ&hl=en",
-"https://scholar.google.com/citations?user=nBJ46o8AAAAJ&hl=en"
-];
+let jss = {
+    prof1 :  [
+        "https://scholar.google.co.in/citations?user=we3-yw4AAAAJ&hl=en",
+        "https://scholar.google.co.in/citations?user=kMEE8lAAAAAJ&hl=en",
+        "https://scholar.google.com/citations?user=XRHUphsAAAAJ&hl=en",
+        "https://scholar.google.com/citations?user=-ZxPXBcAAAAJ&hl=en",
+        "https://scholar.google.co.in/citations?user=KCz3sGcAAAAJ&hl=en",
+        "https://scholar.google.com/citations?user=szO6C0UAAAAJ&hl=en",
+        "https://scholar.google.co.in/citations?user=xkIaOFgAAAAJ&hl=en",
+        "https://scholar.google.com/citations?user=nBJ46o8AAAAJ&hl=en",
+        "https://scholar.google.com/citations?user=7LgtKl8AAAAJ&hl=en",
+        "https://scholar.google.com/citations?user=wPBE5eYAAAAJ&hl=en",
+        "https://scholar.google.co.in/citations?user=o7E_rnwAAAAJ&hl=en"
+    ],
+    prof2 : [
+        "https://scholar.google.co.in/citations?user=RQ7irVQAAAAJ&hl=en"
+    ],
+    prof3 : [
+    ],
+    prof4 : [
+    ],
+};
 
 app.get("/research", isAuth ,(req,res)=>{
-    research.getdata(prof,res,req)
+    const parameter1 = req.query.para;
+    research.getdata(jss[parameter1],res,req,parameter1)
 });
 
 // Simulate an error
