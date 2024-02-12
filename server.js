@@ -195,48 +195,52 @@ app.get("/dashboard", isAuth ,(req, res) => {
                         type : req.session.type,
                         name : req.session.username,
                         csrfToken : req.csrfToken(),
-                        ip : req.ip,
                     });
 });
 
 app.get("/pg", isAuth ,(req,res)=>{
-    const directoryPath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel");
-    let name="";
-    let head = "";
-    let count = 0;
-    for(let i=req.session.pg.length;i>=0;i--){
-        if(req.session.pg.charAt(i)==='/'){
-            count+=1;
-            if(count == 2)
-            break;
+    if(req.session.type == 3 || req.session.type == 2){
+        const directoryPath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel");
+        let name="";
+        let head = "";
+        let count = 0;
+        for(let i=req.session.pg.length;i>=0;i--){
+            if(req.session.pg.charAt(i)==='/'){
+                count+=1;
+                if(count == 2)
+                break;
+            }
+            else if(count == 1){
+                head=req.session.pg.charAt(i)+head;
+            }
+            else{
+                name=req.session.pg.charAt(i)+name;
+            }
         }
-        else if(count == 1){
-            head=req.session.pg.charAt(i)+head;
-        }
-        else{
-            name=req.session.pg.charAt(i)+name;
-        }
+        let fileList = [];
+    
+        fs.readdir(directoryPath, function (err, files) {
+            if (err) {
+                console.log('Unable to scan directory: ' + err);
+                res.redirect("/");
+            }
+            else{
+                files.forEach(function (file) {
+                    fileList.push(file.substring(0,file.length-5));
+                });
+                res.render("./coe",{
+                    list : fileList,
+                    type : req.session.type,
+                    head : head,
+                    name : name,
+                    csrfToken:req.csrfToken(),
+                });
+            }
+        });
     }
-    let fileList = [];
-
-    fs.readdir(directoryPath, function (err, files) {
-        if (err) {
-            console.log('Unable to scan directory: ' + err);
-            res.redirect("/");
-        }
-        else{
-            files.forEach(function (file) {
-                fileList.push(file.substring(0,file.length-5));
-            });
-            res.render("./coe",{
-                list : fileList,
-                type : req.session.type,
-                head : head,
-                name : name,
-                csrfToken:req.csrfToken(),
-            });
-        }
-    });
+    else{
+        res.redirect("/");
+    }
 });
 
 var isValid=(function(){
@@ -249,134 +253,176 @@ var isValid=(function(){
 })();
 
 app.post("/pg", isAuth ,(req,res)=>{
-    if(isValid(req.body.pg) && isValid(req.body.pg1)){
-        const folderName = path.join(__dirname,"/"+req.session.type+"/"+req.body.pg+"/"+req.body.pg1);
-        if(fs.existsSync(folderName)){
-            req.session.pg = "/"+req.body.pg+"/"+req.body.pg1;
-            res.redirect("/pg");
+    if(req.session.type == 3 || req.session.type == 2){
+        if(isValid(req.body.pg) && isValid(req.body.pg1)){
+            const folderName = path.join(__dirname,"/"+req.session.type+"/"+req.body.pg+"/"+req.body.pg1);
+            if(fs.existsSync(folderName)){
+                req.session.pg = "/"+req.body.pg+"/"+req.body.pg1;
+                res.redirect("/pg");
+            }
+            else{
+                console.log("folder not found : "+folderName);
+                res.redirect("/");
+            }
         }
         else{
-            console.log("folder not found : "+folderName);
+            console.log("invalid filename");
             res.redirect("/");
         }
     }
     else{
-        console.log("invalid filename");
         res.redirect("/");
     }
 });
 
-app.post('/upload', upload.single('file'),isAuth, (req, res) => {
+// app.post('/upload', upload.single('file'),isAuth, (req, res) => {
+//     const file = req.file;
+//     if (!file) {
+//         console.log("filenotfound nb");
+//         return res.redirect("/pg");
+//     }
+//     try {
+//       xltojson.xtj(req,file);
+//       res.redirect("/pg");
+//     } 
+//     catch (error) {
+//       console.error('Error reading file:', error);
+//       res.status(500).send('Error reading file.');
+//     }
+// });
+
+app.post('/upload', (req, res, next) => {
+    if (req.session.type == 3) {
+        return next();
+    } else {
+        return res.redirect("/");
+    }
+}, upload.single('file'), isAuth, (req, res) => {
     const file = req.file;
     if (!file) {
-        console.log("filenotfound nb");
+        console.log("File not found");
         return res.redirect("/pg");
     }
     try {
-      xltojson.xtj(req,file);
-      res.redirect("/pg");
-    } 
-    catch (error) {
-      console.error('Error reading file:', error);
-      res.status(500).send('Error reading file.');
+        xltojson.xtj(req, file);
+        res.redirect("/pg");
+    } catch (error) {
+        console.error('Error reading file:', error);
+        res.status(500).send('Error reading file.');
     }
-  });
+});
+
 
 app.post('/content',isAuth,(req,res) => {
-    if(!req.body.fileName){
-        console.log("filename_not_found : "+req.body.fileName);
-        if(!req.session.pg){
-            res.redirect("/");
+    if(req.session.type == 3 || req.session.type == 2){
+        if(!req.body.fileName){
+            console.log("filename_not_found : "+req.body.fileName);
+            if(!req.session.pg){
+                res.redirect("/");
+            }
+            else{
+                res.redirect("/pg");
+            }
+        }
+        else if(!isValid(req.body.fileName)){
+            if(!req.session.pg){
+                res.redirect("/");
+            }
+            else{
+                res.redirect("/pg");
+            }
         }
         else{
-            res.redirect("/pg");
-        }
-    }
-    else if(!isValid(req.body.fileName)){
-        if(!req.session.pg){
-            res.redirect("/");
-        }
-        else{
-            res.redirect("/pg");
+            filePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
+            fs.readFile(filePath, 'utf8', (err, data) => {
+                if (err) {
+                  console.error(err);
+                } 
+                else {
+                  try {
+                    res.render('content.ejs',{
+                        data : data,
+                    });
+                    } catch (error) {
+                        console.error('Error parsing JSON:', error);
+                    }
+                }
+            });
         }
     }
     else{
-        filePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
-        fs.readFile(filePath, 'utf8', (err, data) => {
-            if (err) {
-              console.error(err);
-            } 
-            else {
-              try {
-                res.render('content.ejs',{
-                    data : data,
-                });
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
-                }
-            }
-        });
+        res.redirect("/");
     }
 });
 
 app.post('/delete',isAuth,(req,res) => {
-    if(!req.body.fileName){
-        console.log("filename_not_found : "+req.body.fileName);
-        if(!req.session.pg){
-            res.redirect("/");
+    if(req.session.type == 3){
+        if(!req.body.fileName){
+            console.log("filename_not_found : "+req.body.fileName);
+            if(!req.session.pg){
+                res.redirect("/");
+            }
+            else{
+                res.redirect("/pg");
+            }
+        }
+        else if(!isValid(req.body.fileName)){
+            if(!req.session.pg){
+                res.redirect("/");
+            }
+            else{
+                res.redirect("/pg");
+            }
         }
         else{
-            res.redirect("/pg");
-        }
-    }
-    else if(!isValid(req.body.fileName)){
-        if(!req.session.pg){
-            res.redirect("/");
-        }
-        else{
-            res.redirect("/pg");
+            jsonFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
+            xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
+            if(fs.existsSync(xlFilePath) && fs.existsSync(jsonFilePath)){
+                fs.unlinkSync(jsonFilePath);
+                fs.unlinkSync(xlFilePath);
+                res.redirect("/pg");
+            }
+            else{
+                res.redirect("/pg");
+            }
         }
     }
     else{
-        jsonFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/json/"+req.body.fileName+".json");
-        xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
-        if(fs.existsSync(xlFilePath) && fs.existsSync(jsonFilePath)){
-            fs.unlinkSync(jsonFilePath);
-            fs.unlinkSync(xlFilePath);
-            res.redirect("/pg");
-        }
-        else{
-            res.redirect("/pg");
-        }
+        res.redirect("/");
     }
   });
 
 app.post('/download',isAuth,(req,res) => {
-    if(!req.body.fileName){
-        console.log("filename_not_found : "+req.body.fileName);
-        if(!req.session.pg){
-            res.redirect("/");
+    if(req.session.type == 2 || req.session.type == 3){
+        if(!req.body.fileName){
+            console.log("filename_not_found : "+req.body.fileName);
+            if(!req.session.pg){
+                res.redirect("/");
+            }
+            else{
+                res.redirect("/pg");
+            }
+        }
+        else if(isValid(req.body.fileName)){
+            xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
+            if(fs.existsSync(xlFilePath)){
+                res.status(200).download(xlFilePath, req.body.fileName+".xlsx");
+            }
+            else{
+                res.redirect("/pg");
+            }
         }
         else{
-            res.redirect("/pg");
-        }
-    }
-    else if(isValid(req.body.fileName)){
-        xlFilePath = path.join(__dirname, '/'+req.session.type+req.session.pg+"/excel/"+req.body.fileName+".xlsx");
-        if(fs.existsSync(xlFilePath)){
-            res.status(200).download(xlFilePath, req.body.fileName+".xlsx");
-        }
-        else{
-            res.redirect("/pg");
+            if(!req.session.pg){
+                res.redirect("/");
+            }
+            else{
+                res.redirect("/pg");
+            }
         }
     }
     else{
-        if(!req.session.pg){
-            res.redirect("/");
-        }
-        else{
-            res.redirect("/pg");
-        }
+        res.redirect("/");
     }
 });
 
@@ -436,7 +482,7 @@ app.get("/research", isAuth ,(req,res)=>{
         research.getdata(jss[parameter1],res,req,parameter1);
     }
     else{
-        res.redirect("/dashboard");
+        res.redirect("/");
     }
 });
 
