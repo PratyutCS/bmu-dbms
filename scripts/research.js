@@ -1,22 +1,24 @@
 const puppeteer = require("puppeteer");
 
 async function getdata(links, res, req, parameter1) {
-    const MAX_CONCURRENT_PAGES = 20;
-    const BROWSER_PAGES_LIMIT = 40;
+    const MAX_CONCURRENT_PAGES = 100;
+    const BROWSER_PAGES_LIMIT = 100;
 
     const dataArray = [];
     let map1 = new Map();
 
     let browser = await puppeteer.launch({
-        headless: "new",
+        headless: false,
         defaultViewport: null,
+        args: ['--incognito'],
     });
 
     try {
         let pageCounter = 0;
 
         const fetchData = async (link) => {
-            const page = await browser.newPage();
+            const context = await browser.createIncognitoBrowserContext(); // Create an incognito context
+            const page = await context.newPage();
             await page.setRequestInterception(true);
 
             page.on('request', (req) => {
@@ -55,7 +57,7 @@ async function getdata(links, res, req, parameter1) {
                     if (!shouldContinue) {
                         // console.log("Clicking the button...");
                         await loginButton.click();
-                        await page.waitForTimeout(1000);
+                        await new Promise(resolve => setTimeout(resolve, 1000));
                     }
                 }
                 // console.log("Data extraction checkpoint");
@@ -112,7 +114,6 @@ async function getdata(links, res, req, parameter1) {
             }
         };
 
-        const promises = [];
         for (let i = 0; i < links.length; i += MAX_CONCURRENT_PAGES) {
             const batch = links.slice(i, i + MAX_CONCURRENT_PAGES);
             await Promise.all(batch.map(link => fetchData(link)));
