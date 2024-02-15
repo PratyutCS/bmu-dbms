@@ -8,7 +8,7 @@ async function getdata(links, res, req, parameter1) {
     let map1 = new Map();
 
     let browser = await puppeteer.launch({
-        headless: false,
+        headless: "new",
         defaultViewport: null,
         args: ['--incognito'],
     });
