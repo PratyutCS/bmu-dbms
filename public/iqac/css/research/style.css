@@ -8,6 +8,16 @@
     margin: 0;
     padding: 0;
 }
+::-webkit-scrollbar {
+    width: 0.5vw;
+}  
+::-webkit-scrollbar-track {
+    background: #FFFFFF; 
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 0.5vw;
+    background: darkgrey;
+}
 body{
     overflow: hidden;
 }
@@ -229,12 +239,17 @@ section{
     overflow-x: hidden;
 }
 .sc2-2-2-1-1{
-    width: 30%;
     height: 90%;
     background-color: #F8EFEF;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.ch1{
+    width: 37.5%;
+}
+.ch2{
+    width: 27.5%;
 }
 .charts{
     width:95% !important;
