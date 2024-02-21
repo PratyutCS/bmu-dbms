@@ -19,7 +19,7 @@ app.use(Express.json());
 app.use(Express.static(__dirname + '/public/src'));
 app.use(Express.static(__dirname + '/public/assets'));
 app.use(Express.static(__dirname + '/public/iqac'));
-app.set('trust proxy', true);
+app.use(Express.static(__dirname + '/public/coe'));
 
 let htmlfolder = path.join(__dirname, "/public/html");
 
