@@ -50,6 +50,14 @@ const isAuth=(req,res,next)=>{
         res.redirect("/");
     }
 };
+const isCoe=(req,res,next)=>{
+    if(req.session.isAuth && req.session.type == 3){
+        next();
+    }
+    else{
+        res.redirect("/");
+    }
+};
 
 const store = new mongodbsession({
     uri:urri,
@@ -160,6 +168,10 @@ app.post("/index", async(req, res) => {
                             req.session.password = useremail.content;
                             req.session.type = useremail.type;
                             console.log(req.session.username+' logged in successfully.');
+                            if(req.session.type == 3){
+                                req.session.form1 = 1;
+                                req.session.form2 = 1;
+                            }
                             res.redirect("/dashboard");
                         }
                     }
@@ -191,11 +203,28 @@ app.post("/logout",isAuth, (req, res) => {
 
 
 app.get("/dashboard", isAuth ,(req, res) => {
-    res.render('index',{
-                        type : req.session.type,
-                        name : req.session.username,
-                        csrfToken : req.csrfToken(),
-                    });
+    if(req.session.type == 3){
+        res.render('coe0',{
+                            type : req.session.type,
+                            name : req.session.username,
+                            csrfToken : req.csrfToken(),
+                            form1: req.session.form1,
+                            form2: req.session.form2,
+                        });
+    }
+    else{
+        res.render('index',{
+                            type : req.session.type,
+                            name : req.session.username,
+                            csrfToken : req.csrfToken(),
+                        });
+    }
+});
+
+app.post("/coeNavigator", isCoe ,(req, res) => {
+    req.session.form1 = req.body.form1;
+    req.session.form2 = req.body.form2;
+    res.redirect("/");
 });
 
 app.get("/pg", isAuth ,(req,res)=>{

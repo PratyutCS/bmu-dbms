@@ -1,6 +1,6 @@
 window.addEventListener("load",function(){
-    btn1(1);
-    btn2(1);
+    btn1(document.querySelector(".value1").innerHTML);
+    btn2(document.querySelector(".value2").innerHTML);
   })
 
 
@@ -128,3 +128,68 @@ function btn2(i){
         document.querySelector(".sc2-2-1-linkLine-1").innerHTML = "School of Liberal Studies";
     }
 }
+
+
+function btn11(i){
+    if(i==1){
+        loadPartial(1,document.querySelector(".value2").innerHTML);
+    }
+    else if(i==2){
+        loadPartial(2,document.querySelector(".value2").innerHTML);
+    }
+    else if(i==3){
+        loadPartial(3,document.querySelector(".value2").innerHTML);
+    }
+    else if(i==4){
+        loadPartial(4,document.querySelector(".value2").innerHTML);
+    }
+    else if(i==5){
+        loadPartial(5,document.querySelector(".value2").innerHTML);
+    }
+    else if(i==6){
+        loadPartial(6,document.querySelector(".value2").innerHTML);
+    }
+}
+
+
+function btn21(i){
+    if(i==1){
+        loadPartial(document.querySelector(".value1").innerHTML,1);
+    }
+    else if(i==2){
+        loadPartial(document.querySelector(".value1").innerHTML,2);
+    }
+    else if(i==3){
+        loadPartial(document.querySelector(".value1").innerHTML,3);
+    }
+    else if(i==4){
+        loadPartial(document.querySelector(".value1").innerHTML,4);
+    }
+}
+
+function loadPartial(i,j) {
+    let csrfToken = document.querySelector(".csrfToken").innerHTML;
+    let data = {
+      form1: i,
+      form2: j,
+    };
+    fetch('/coeNavigator', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (response.ok) {
+        location.reload();
+        console.log('Data sent successfully!');
+      } else {
+        console.error('Error sending data.');
+      }
+    })
+    .catch(error => {
+      console.error('Error sending data:');
+    });
+  }
