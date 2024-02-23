@@ -221,7 +221,45 @@ app.get("/dashboard", isAuth ,(req, res) => {
     }
 });
 
+let field1={
+    'f1':'Grade Sheet',
+    'f2':'Exam & Request dates',
+    'f3':'Student Grievances',
+    'f4':'Pass Percentage',
+    'f5':'Courses repeated',
+    'f6':'Exam Annual Report',
+};
+let field21={
+    'f1':'som',
+    'f2':'soet',
+    'f3':'sol',
+    'f4':'sols',
+};
+let field22={
+    'f1':'odd sem',
+    'f2':'even sem',
+};
+let field23={
+    'f1':'click here',
+};
+
 app.post("/coeNavigator", isCoe ,(req, res) => {
+    let data;
+    let ff2 = "f"+req.body.form2;
+    if(req.body.form1 == 2){
+        data = field22[ff2];
+    }
+    else if(req.body.form1 == 6){
+        data = field23[ff2];
+    }
+    else{
+        data = field21[ff2];
+    }
+    console.log(field1["f"+req.body.form1]+" "+data);
+    const folderName = path.join(__dirname,"/"+req.session.type+"/"+field1["f"+req.body.form1]+"/"+data);
+    if(fs.existsSync(folderName)){
+        console.log("worked");
+    }
     req.session.form1 = req.body.form1;
     req.session.form2 = req.body.form2;
     res.redirect("/");
