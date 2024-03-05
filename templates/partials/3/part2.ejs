@@ -84,7 +84,11 @@
                     <div class="sc2-2-2-2">
                         <div class="sc2-2-2-2-1">
                             <div class="sc2-2-2-2-1-1">
-                                <div class="sc2-2-2-2-1-1-1"></div>
+                                <div class="sc2-2-2-2-1-1-1">
+                                    <% for (var i = 0; i < list.length;  i++ ) { %>
+                                        <h1><%= list[i] %></h1>
+                                    <% } %>
+                                </div>
                             </div>
                             <div class="sc2-2-2-2-1-2">
                                 <div class="sc2-2-2-2-1-2-1">
@@ -93,16 +97,19 @@
                                 <div class="sc2-2-2-2-1-2-2">
                                     <div class="sc2-2-2-2-1-2-2-1">
                                         <form action="" method="post">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                             <button type="submit">Download</button>
                                         </form>
                                     </div>
                                     <div class="sc2-2-2-2-1-2-2-2">
                                         <form action="" method="post">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                             <button type="submit">Delete</button>
                                         </form>
                                     </div>
                                     <div class="sc2-2-2-2-1-2-2-3">
                                         <form action="" method="post">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                             <button type="submit">View Full Sheet</button>
                                         </form>
                                     </div>

@@ -201,26 +201,6 @@ app.post("/logout",isAuth, (req, res) => {
     });
 });
 
-
-app.get("/dashboard", isAuth ,(req, res) => {
-    if(req.session.type == 3){
-        res.render('coe0',{
-                            type : req.session.type,
-                            name : req.session.username,
-                            csrfToken : req.csrfToken(),
-                            form1: req.session.form1,
-                            form2: req.session.form2,
-                        });
-    }
-    else{
-        res.render('index',{
-                            type : req.session.type,
-                            name : req.session.username,
-                            csrfToken : req.csrfToken(),
-                        });
-    }
-});
-
 let field1={
     'f1':'Grade Sheet',
     'f2':'Exam & Request dates',
@@ -243,23 +223,61 @@ let field23={
     'f1':'click here',
 };
 
-app.post("/coeNavigator", isCoe ,(req, res) => {
-    let data;
-    let ff2 = "f"+req.body.form2;
-    if(req.body.form1 == 2){
-        data = field22[ff2];
-    }
-    else if(req.body.form1 == 6){
-        data = field23[ff2];
+
+app.get("/dashboard", isAuth ,(req, res) => {
+    if(req.session.type == 3){
+
+        let data;
+        let ff2 = "f"+req.session.form2;
+        if(req.session.form1 == 2){
+            data = field22[ff2];
+        }
+        else if(req.session.form1 == 6){
+            data = field23[ff2];
+        }
+        else{
+            data = field21[ff2];
+        }
+        console.log(field1["f"+req.session.form1]+" "+data);
+        const folderName = path.join(__dirname,"/"+req.session.type+"/"+field1["f"+req.session.form1]+"/"+data);
+        console.log(folderName)
+        if(fs.existsSync(folderName)){
+            console.log("worked");
+        }
+        const directoryPath = path.join(__dirname,"/"+req.session.type+"/"+field1["f"+req.session.form1]+"/"+data+"/excel");
+        let fileList = [];
+        fs.readdir(directoryPath, function (err, files) {
+            if (err) {
+                console.log('Unable to scan directory: ' + err);
+                res.redirect("/");
+            }
+            else{
+                files.forEach(function (file) {
+                    fileList.push(file.substring(0,file.length-5));
+                });
+                console.log(fileList);
+
+                res.render('coe0',{
+                                    type : req.session.type,
+                                    name : req.session.username,
+                                    csrfToken : req.csrfToken(),
+                                    form1: req.session.form1,
+                                    form2: req.session.form2,
+                                    list : fileList,
+                                });
+            }
+        });
     }
     else{
-        data = field21[ff2];
+        res.render('index',{
+                            type : req.session.type,
+                            name : req.session.username,
+                            csrfToken : req.csrfToken(),
+                        });
     }
-    console.log(field1["f"+req.body.form1]+" "+data);
-    const folderName = path.join(__dirname,"/"+req.session.type+"/"+field1["f"+req.body.form1]+"/"+data);
-    if(fs.existsSync(folderName)){
-        console.log("worked");
-    }
+});
+
+app.post("/coeNavigator", isCoe ,(req, res) => {
     req.session.form1 = req.body.form1;
     req.session.form2 = req.body.form2;
     res.redirect("/");
