@@ -68,8 +68,8 @@ function btn1(i){
     }
     else if(i==3){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn3").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn6").classList.remove("sc1-2-btn-active");
@@ -82,8 +82,8 @@ function btn1(i){
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
-        document.querySelector(".sc1-2-txt3").style.color = "#797979";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
+        document.querySelector(".sc1-2-txt3").style.color = "#000000";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
         document.querySelector(".sc1-2-txt6").style.color = "#797979";
@@ -99,9 +99,9 @@ function btn1(i){
     }
     else if(i==4){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn4").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn6").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn7").classList.remove("sc1-2-btn-active");
@@ -113,9 +113,9 @@ function btn1(i){
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
-        document.querySelector(".sc1-2-txt4").style.color = "#797979";
+        document.querySelector(".sc1-2-txt4").style.color = "#000000";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
         document.querySelector(".sc1-2-txt6").style.color = "#797979";
         document.querySelector(".sc1-2-txt7").style.color = "#797979";
@@ -130,10 +130,10 @@ function btn1(i){
     }
     else if(i==5){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn5").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn6").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn7").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn8").classList.remove("sc1-2-btn-active");
@@ -144,10 +144,10 @@ function btn1(i){
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
-        document.querySelector(".sc1-2-txt5").style.color = "#797979";
+        document.querySelector(".sc1-2-txt5").style.color = "#000000";
         document.querySelector(".sc1-2-txt6").style.color = "#797979";
         document.querySelector(".sc1-2-txt7").style.color = "#797979";
         document.querySelector(".sc1-2-txt8").style.color = "#797979";
@@ -161,11 +161,11 @@ function btn1(i){
     }
     else if(i==6){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn6").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn6").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn7").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn8").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn9").classList.remove("sc1-2-btn-active");
@@ -175,11 +175,11 @@ function btn1(i){
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
-        document.querySelector(".sc1-2-txt6").style.color = "#797979";
+        document.querySelector(".sc1-2-txt6").style.color = "#000000";
         document.querySelector(".sc1-2-txt7").style.color = "#797979";
         document.querySelector(".sc1-2-txt8").style.color = "#797979";
         document.querySelector(".sc1-2-txt9").style.color = "#797979";
@@ -192,12 +192,12 @@ function btn1(i){
     }
     else if(i==7){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn6").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn7").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn7").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn8").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn9").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn10").classList.remove("sc1-2-btn-active");
@@ -206,12 +206,12 @@ function btn1(i){
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
         document.querySelector(".sc1-2-txt6").style.color = "#797979";
-        document.querySelector(".sc1-2-txt7").style.color = "#797979";
+        document.querySelector(".sc1-2-txt7").style.color = "#000000";
         document.querySelector(".sc1-2-txt8").style.color = "#797979";
         document.querySelector(".sc1-2-txt9").style.color = "#797979";
         document.querySelector(".sc1-2-txt10").style.color = "#797979";
@@ -223,13 +223,13 @@ function btn1(i){
     }
     else if(i==8){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn6").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn7").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn8").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn8").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn9").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn10").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn11").classList.remove("sc1-2-btn-active");
@@ -237,13 +237,13 @@ function btn1(i){
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
         document.querySelector(".sc1-2-txt6").style.color = "#797979";
         document.querySelector(".sc1-2-txt7").style.color = "#797979";
-        document.querySelector(".sc1-2-txt8").style.color = "#797979";
+        document.querySelector(".sc1-2-txt8").style.color = "#000000";
         document.querySelector(".sc1-2-txt9").style.color = "#797979";
         document.querySelector(".sc1-2-txt10").style.color = "#797979";
         document.querySelector(".sc1-2-txt11").style.color = "#797979";
@@ -254,28 +254,28 @@ function btn1(i){
     }
     else if(i==9){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn6").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn7").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn8").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn9").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn9").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn10").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn11").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn12").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
         document.querySelector(".sc1-2-txt6").style.color = "#797979";
         document.querySelector(".sc1-2-txt7").style.color = "#797979";
         document.querySelector(".sc1-2-txt8").style.color = "#797979";
-        document.querySelector(".sc1-2-txt9").style.color = "#797979";
+        document.querySelector(".sc1-2-txt9").style.color = "#000000";
         document.querySelector(".sc1-2-txt10").style.color = "#797979";
         document.querySelector(".sc1-2-txt11").style.color = "#797979";
         document.querySelector(".sc1-2-txt12").style.color = "#797979";
@@ -285,7 +285,7 @@ function btn1(i){
     }
     else if(i==10){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
@@ -293,13 +293,13 @@ function btn1(i){
         document.querySelector(".sc1-2-btn7").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn8").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn9").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn10").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn10").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn11").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn12").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
@@ -307,7 +307,7 @@ function btn1(i){
         document.querySelector(".sc1-2-txt7").style.color = "#797979";
         document.querySelector(".sc1-2-txt8").style.color = "#797979";
         document.querySelector(".sc1-2-txt9").style.color = "#797979";
-        document.querySelector(".sc1-2-txt10").style.color = "#797979";
+        document.querySelector(".sc1-2-txt10").style.color = "#000000";
         document.querySelector(".sc1-2-txt11").style.color = "#797979";
         document.querySelector(".sc1-2-txt12").style.color = "#797979";
         document.querySelector(".sc1-2-txt13").style.color = "#797979";
@@ -316,7 +316,7 @@ function btn1(i){
     }
     else if(i==11){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
@@ -325,12 +325,12 @@ function btn1(i){
         document.querySelector(".sc1-2-btn8").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn9").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn10").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn11").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn11").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn12").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
@@ -339,7 +339,7 @@ function btn1(i){
         document.querySelector(".sc1-2-txt8").style.color = "#797979";
         document.querySelector(".sc1-2-txt9").style.color = "#797979";
         document.querySelector(".sc1-2-txt10").style.color = "#797979";
-        document.querySelector(".sc1-2-txt11").style.color = "#797979";
+        document.querySelector(".sc1-2-txt11").style.color = "#000000";
         document.querySelector(".sc1-2-txt12").style.color = "#797979";
         document.querySelector(".sc1-2-txt13").style.color = "#797979";
         document.querySelector(".sc1-2-txt14").style.color = "#797979";
@@ -347,7 +347,7 @@ function btn1(i){
     }
     else if(i==12){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
@@ -357,11 +357,11 @@ function btn1(i){
         document.querySelector(".sc1-2-btn9").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn10").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn11").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn12").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn12").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
@@ -371,14 +371,14 @@ function btn1(i){
         document.querySelector(".sc1-2-txt9").style.color = "#797979";
         document.querySelector(".sc1-2-txt10").style.color = "#797979";
         document.querySelector(".sc1-2-txt11").style.color = "#797979";
-        document.querySelector(".sc1-2-txt12").style.color = "#797979";
+        document.querySelector(".sc1-2-txt12").style.color = "#000000";
         document.querySelector(".sc1-2-txt13").style.color = "#797979";
         document.querySelector(".sc1-2-txt14").style.color = "#797979";
         document.querySelector(".sc2-2-1-linkLine-0").innerHTML = "3.4.8";
     }
     else if(i==13){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn2").classList.add("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn2").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn3").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn4").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn5").classList.remove("sc1-2-btn-active");
@@ -389,10 +389,10 @@ function btn1(i){
         document.querySelector(".sc1-2-btn10").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn11").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn12").classList.remove("sc1-2-btn-active");
-        document.querySelector(".sc1-2-btn13").classList.remove("sc1-2-btn-active");
+        document.querySelector(".sc1-2-btn13").classList.add("sc1-2-btn-active");
         document.querySelector(".sc1-2-btn14").classList.remove("sc1-2-btn-active");
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
-        document.querySelector(".sc1-2-txt2").style.color = "#000000";
+        document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
         document.querySelector(".sc1-2-txt4").style.color = "#797979";
         document.querySelector(".sc1-2-txt5").style.color = "#797979";
@@ -403,7 +403,7 @@ function btn1(i){
         document.querySelector(".sc1-2-txt10").style.color = "#797979";
         document.querySelector(".sc1-2-txt11").style.color = "#797979";
         document.querySelector(".sc1-2-txt12").style.color = "#797979";
-        document.querySelector(".sc1-2-txt13").style.color = "#797979";
+        document.querySelector(".sc1-2-txt13").style.color = "#000000";
         document.querySelector(".sc1-2-txt14").style.color = "#797979";
         document.querySelector(".sc2-2-1-linkLine-0").innerHTML = "3.5.1";
     }
