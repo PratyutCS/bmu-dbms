@@ -1,0 +1,354 @@
+@font-face {
+    font-family: nats;
+    font-style: normal;
+    font-weight: 100;
+    src: url("../../assets/index/NATS\ 400.ttf");
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow: hidden;
+}
+section{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.sc1{
+    width: 20%;
+    height: 100%;
+    border-right: 1px solid #BFBFBF;
+    background-color: #FFFBF7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.sc1-1{
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.sc1-1-img{
+    width: 7.5vh;
+    max-width: 7.5vh;
+    min-width: 7.5vh;
+    height: 7.5vh;
+    max-height: 7.5vh;
+    min-height: 7.5vh;
+    padding-left: 2vw;
+}
+.logo-heading{
+    font-family: nats;
+    font-size: 1.5vmax;
+    font-weight: 100;
+    line-height: 1.5vmax;  
+    color: #7B7B7B;
+    text-align: center;
+    padding-top: 2vh;
+    padding-left: 0.5vw;
+}
+.sc1-2{
+    width: 100%;
+    height: 80%;
+}
+.sc1-2 div{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+.sc1-2 div:hover{
+    background-color: #F2EFEC;
+}
+.sc1-2-btn-active{
+    border-top: 1px solid #CFCFCF;
+    border-bottom: 1px solid #CFCFCF;
+    background-color: #F2EFEC;
+}
+.sc1-2 div h1{
+    color: #797979;
+    font-family: nats;
+    font-weight: 100;
+    font-size: 1vmax;
+    line-height: 1vmax;
+    padding-left: 2vw;
+}
+.sc1-2 img{
+    padding-left: 2vw;
+    width: 2vw;
+    height: 5vh;
+    max-height: 5vh;
+    max-width: 5vh;
+    min-width: 2vw;
+    min-height: 2vw;
+}
+.sc2{
+    width: 80%;
+    height: 100%;
+    background-color: aqua;
+}
+.sc2-1{
+    width: 100%;
+    height: 10%;
+    border-bottom: 1px solid #BFBFBF;
+    background-color: #FFFBF7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sc2-1 h1{
+    color: #484848;
+    font-family: nats;
+    font-weight: 100;
+    font-size: 2vmax;
+    line-height: 2vmax;
+    padding-left: 2vw;
+}
+.sc2-1 form{
+    padding-right: 2vw;
+}
+.sc2-1 form button{
+    padding: 1vh 2.5vw;
+    color: #818181;
+    font-family: nats;
+    font-weight: 100;
+    font-size: 1.1vmax;
+    line-height: 1.1vmax;
+    border: 1px solid #E2E2E2;
+    border-radius: 3rem;
+    background-color: #FFFFFF;
+    transition: all 0.25s linear;
+}
+.sc2-1 form button:hover{
+    color: #000000;
+    border: 1px solid #000000;
+}
+.sc2-2{
+    width: 100%;
+    height: 70%;
+    background-color: green;
+    border-bottom: 1px solid #BFBFBF;
+}
+.sc2-3{
+    width: 100%;
+    height: 20%;
+    background-color: blue;
+}
+.sc2-2-1{
+    width: 100%;
+    height: 5%;
+    background-color: #FFFBF7;
+    border-bottom: 1px solid #BFBFBF;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.sc2-2-1 h1{
+    color: #7F7F7F;
+    font-family: nats;
+    font-weight: 100;
+    font-size: 1vmax;
+    line-height: 1vmax;
+    text-align: left;
+    padding-left: 1%;
+}
+.sc2-2-2{
+    width: 100%;
+    height: 95%;
+    background-color: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-bottom: 1px solid #BFBFBF;
+}
+.sc2-2-2-1{
+    width: 20%;
+    height: 100%;
+    background-color: #F6F3F0;
+    border-right: 1px solid #BFBFBF;
+    border-bottom: 1px solid #BFBFBF;
+}
+.sc2-2-2-1 div{
+    width: 100%;
+    height: 8.1vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 0px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+.sc2-2-2-1 img{
+    padding-left: 0.75vw;
+    width: 2vw;
+    height: 5vh;
+    max-height: 5vh;
+    max-width: 5vh;
+    min-width: 2vw;
+    min-height: 2vw;
+}
+.sc2-2-2-1 div:hover{
+    background-color: #FFFBF7;
+}
+.sc2-2-2-1 div h1{
+    padding-left: 0.75vw;
+    font-family: nats;
+    font-weight: 100;
+    font-size: 1vmax;
+    line-height: 1vmax;
+    color: #797979;
+    text-align: center;
+}
+.sc2-2-2-1-btn1{
+    margin-top: 6.25vh;
+}
+.sc2-2-2-1-btn-active{
+    background-color: #FFFBF7;
+    border-top: 1px solid #E2E1DE !important;
+    border-bottom: 1px solid #E2E1DE !important;
+}
+.sc2-2-2-2{
+    width: 80%;
+    height: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid #BFBFBF;
+}
+.sc2-2-2-2-1{
+    height: 70%;
+    width: 90%;
+    background-color: #F8F8F8;
+    border: 1px solid #CACACA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.sc2-2-2-2-1-1{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sc2-2-2-2-1-1-1{
+    width: 95%;
+    height: 96%;
+    border: 1px solid#CACACA;
+    background-color: #F4F4F4;
+}
+.sc2-2-2-2-1-2{
+    height: 100%;
+    width: 80%;
+}
+
+.sc2-2-2-2-1-2-1{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.sc2-2-2-2-1-2-1-1{
+    width: 97.5%;
+    height: 96%;
+    border: 1px solid#CACACA;
+    background-color: #F4F4F4;
+}
+.sc2-2-2-2-1-2-2{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2vw;
+}
+.sc2-2-2-2-1-2-2-1, .sc2-2-2-2-1-2-2-2, .sc2-2-2-2-1-2-2-3{
+    height: 50%;
+    width: 20%;
+    background-color: #F4F4F4;
+    border: 1px solid #CACACA;
+    cursor: pointer;
+}
+.sc2-2-2-2-1-2-2-1 form, .sc2-2-2-2-1-2-2-2 form, .sc2-2-2-2-1-2-2-3 form{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.sc2-2-2-2-1-2-2-1 form button, .sc2-2-2-2-1-2-2-2 form button, .sc2-2-2-2-1-2-2-3 form button{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #CACACA;
+    background-color: #F4F4F4;
+    color: #797979;
+    transition: all 0.25s linear;
+    cursor: pointer;
+}
+.sc2-2-2-2-1-2-2-1 form button:focus, .sc2-2-2-2-1-2-2-2 form button:focus, .sc2-2-2-2-1-2-2-3 form button:focus{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
+    color: #000000;
+}
+.sc2-2-2-2-1-2-2-1 form button:hover, .sc2-2-2-2-1-2-2-2 form button:hover, .sc2-2-2-2-1-2-2-3 form button:hover{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
+    color: #000000;
+}
+.sc2-2-2-2-2{
+    height: 15%;
+    width: 90%;
+    background-color: #F4F4F4;
+    border: 1px solid #CACACA;
+}
+.sc2-3-1{
+    height: 25%;
+    width: 100%;
+    background-color: #F4F4F4;
+    border-bottom: 1px solid #BFBFBF;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.sc2-3-1 h1{
+    font-family: nats;
+    font-weight: 100;
+    font-size: 1.5vmax;
+    line-height: 1.5vmax;
+    padding-left: 2vw;
+    letter-spacing: 0;
+    color: #575757;
+}
+.sc2-3-2{
+    height: 75%;
+    width: 100%;
+    background-color: #F8F8F8;
+}

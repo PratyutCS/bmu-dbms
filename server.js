@@ -242,31 +242,30 @@ app.get("/dashboard", isAuth ,(req, res) => {
         const folderName = path.join(__dirname,"/"+req.session.type+"/"+field1["f"+req.session.form1]+"/"+data);
         console.log(folderName)
         if(fs.existsSync(folderName)){
-            console.log("worked");
-        }
-        const directoryPath = path.join(__dirname,"/"+req.session.type+"/"+field1["f"+req.session.form1]+"/"+data+"/excel");
-        let fileList = [];
-        fs.readdir(directoryPath, function (err, files) {
-            if (err) {
-                console.log('Unable to scan directory: ' + err);
-                res.redirect("/");
-            }
-            else{
-                files.forEach(function (file) {
-                    fileList.push(file.substring(0,file.length-5));
-                });
-                console.log(fileList);
+            const directoryPath = path.join(__dirname,"/"+req.session.type+"/"+field1["f"+req.session.form1]+"/"+data+"/excel");
+            let fileList = [];
+            fs.readdir(directoryPath, function (err, files) {
+                if (err) {
+                    console.log('Unable to scan directory: ' + err);
+                    res.redirect("/");
+                }
+                else{
+                    files.forEach(function (file) {
+                        fileList.push(file.substring(0,file.length-5));
+                    });
+                    console.log(fileList);
 
-                res.render('coe0',{
-                                    type : req.session.type,
-                                    name : req.session.username,
-                                    csrfToken : req.csrfToken(),
-                                    form1: req.session.form1,
-                                    form2: req.session.form2,
-                                    list : fileList,
-                                });
-            }
-        });
+                    res.render('coe0',{
+                                        type : req.session.type,
+                                        name : req.session.username,
+                                        csrfToken : req.csrfToken(),
+                                        form1: req.session.form1,
+                                        form2: req.session.form2,
+                                        list : fileList,
+                                    });
+                }
+            });                 
+        }
     }
     else{
         res.render('index',{
