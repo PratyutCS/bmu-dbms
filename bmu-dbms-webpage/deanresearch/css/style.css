@@ -63,6 +63,8 @@ section{
 .sc1-2{
     width: 100%;
     height: 80%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .sc1-2 div{
     width: 100%;
