@@ -11,7 +11,7 @@ function btn1(i){
         document.querySelector(".sc1-2-txt1").style.color = "#000000";
         document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
-        document.querySelector(".sc2-2-1-linkLine-0").innerHTML = "5.2.2";
+        document.querySelector(".sc2-2-1-linkLine-0").innerHTML = "5.2.1";
     }
     else if(i==2){
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
@@ -20,7 +20,7 @@ function btn1(i){
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
         document.querySelector(".sc1-2-txt2").style.color = "#000000";
         document.querySelector(".sc1-2-txt3").style.color = "#797979";
-        document.querySelector(".sc2-2-1-linkLine-0").innerHTML = "5.2.3";
+        document.querySelector(".sc2-2-1-linkLine-0").innerHTML = "5.2.2";
     }
     else{
         document.querySelector(".sc1-2-btn1").classList.remove("sc1-2-btn-active");
@@ -29,6 +29,6 @@ function btn1(i){
         document.querySelector(".sc1-2-txt1").style.color = "#797979";
         document.querySelector(".sc1-2-txt2").style.color = "#797979";
         document.querySelector(".sc1-2-txt3").style.color = "#000000";
-        document.querySelector(".sc2-2-1-linkLine-0").innerHTML = "5.4.1";
+        document.querySelector(".sc2-2-1-linkLine-0").innerHTML = "5.2.3";
     }
 }
